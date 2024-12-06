@@ -2,14 +2,12 @@ import 'dart:math';
 
 Random random = Random();
 const kontak =
-    'KONTAK KAMI.';
+    'KONTAK KAMI';
 
 class TravelDestination {
   final int id;
   final List<String>? image;
   final String name, description, category, location, kontak;
-
-  var price;
 
   TravelDestination({
     required this.id,

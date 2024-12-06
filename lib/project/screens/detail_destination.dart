@@ -237,91 +237,145 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Text(
-                            widget.destination.description,
-                            maxLines: 3,
-                            style: const TextStyle(
-                                color: Colors.black54,
-                                fontSize: 14,
-                                height: 1.5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.destination.description,
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 14,
+                                  height: 1.5,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Kontak Kami",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.location_on, size: 20, color: Colors.black),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          "Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat, 43253",
+                                          style: TextStyle(fontSize: 13),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.phone, size: 20, color: Colors.black),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        "(+62) 812-2466-7108",
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.email, size: 20, color: Colors.black),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        "info@cibodas.id",
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                         const Center(
                           child: Text("Tidak Ada Review"),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Harga',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
                         ),
                       ],
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: kButtonColor,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.shopping_cart_outlined,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Masukkan Keranjang',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Container(
+          //     height: 80,
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.only(
+          //         topLeft: Radius.circular(15),
+          //         topRight: Radius.circular(15),
+          //       ),
+          //     ),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Padding(
+          //           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(
+          //                 'Harga',
+          //                 style: TextStyle(
+          //                   fontSize: 15,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //         TextButton(
+          //           onPressed: () {},
+          //           child: Container(
+          //             padding: EdgeInsets.symmetric(
+          //               horizontal: 15,
+          //               vertical: 15,
+          //             ),
+          //             decoration: BoxDecoration(
+          //               borderRadius: BorderRadius.circular(15),
+          //               color: kButtonColor,
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 Icon(
+          //                   Icons.shopping_cart_outlined,
+          //                   color: Colors.white,
+          //                   size: 14,
+          //                 ),
+          //                 SizedBox(
+          //                   width: 5,
+          //                 ),
+          //                 Text(
+          //                   'Masukkan Keranjang',
+          //                   style: TextStyle(
+          //                     fontSize: 12,
+          //                     fontWeight: FontWeight.w600,
+          //                     color: Colors.white,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
+import 'package:app_cibodas/model/fasilitas_model.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
+import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
+import 'package:app_cibodas/project/widgets/fasility_destination.dart';
 import 'package:app_cibodas/project/widgets/popular_destination.dart';
 import 'package:app_cibodas/project/widgets/show_artikel.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,10 @@ class _HomePageState extends State<HomePage> {
 
   List<TravelDestination> popular = listDestination
       .where((element) => element.category == 'popular')
+      .toList();
+
+  List<FasilitasModel> fasilitas = listFasility
+      .where((element) => element.category == 'fasilitas')
       .toList();
 
   List<ArtikelModel> rekomendasi = listArtikel
@@ -157,11 +164,11 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) =>
-                                        DetailDestinasi(destination: popular[index]),
+                                        DetailFasilitas(destination: fasilitas[index]),
                                   ),
                                 );
                               },
-                              child: PopularDestination(destination: popular[index]),
+                              child: FasilityDestination(destination: fasilitas[index]),
                             ),
                           ),
                         ),

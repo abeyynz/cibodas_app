@@ -4,14 +4,14 @@ Random random = Random();
 const kontak =
     'KONTAK KAMI.';
 
-class TravelDestination {
+class FasilitasModel {
   final int id;
   final List<String>? image;
   final String name, description, category, location, kontak;
 
   var price;
 
-  TravelDestination({
+  FasilitasModel({
     required this.id,
     required this.name,
     required this.category,
@@ -22,12 +22,11 @@ class TravelDestination {
   });
 }
 
-List<TravelDestination> listDestination = [
-  // Popular destinations
-  TravelDestination(
+List<FasilitasModel> listFasility = [
+  FasilitasModel(
       id: 1,
-      name: "Danau Cibodas",
-      category: 'popular',
+      name: "Guest House Sakura",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1683772965002-67c1f0a6d5fd?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1723407877285-584e2d0053ab?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -35,13 +34,13 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1603347194698-9a1e21af75c8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Danau Cibodas ",
+      description: "Guest House Sakura ",
       kontak: kontak
       ),
-  TravelDestination(
+  FasilitasModel(
       id: 2,
-      name: "Rumah Kaca",
-      category: 'popular',
+      name: "Shuttle Bus",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1571366343168-631c5bcca7a4?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1590074721515-4e511fa59bcb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -49,12 +48,12 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1624104416015-f0ef71c7800a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Rumah Kaca",
+      description: "Shuttle Bus",
       kontak: kontak),
-  TravelDestination(
+  FasilitasModel(
       id: 3,
-      name: "Curug Cibogo",
-      category: 'popular',
+      name: "E-Scooter",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1724258391590-6cfdc2d783b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1724258474555-1c850b2ccda6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -62,12 +61,12 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1703769605328-01120ea51ee0?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Curug Cibogo",
+      description: "E-Scooter",
       kontak: kontak),
-  TravelDestination(
+  FasilitasModel(
       id: 4,
-      name: "Taman Liana",
-      category: 'popular',
+      name: "Guest House Medinilla",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1724258391590-6cfdc2d783b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1724258474555-1c850b2ccda6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -75,12 +74,12 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1703769605328-01120ea51ee0?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Taman Liana",
+      description: "Guest House Medinilla",
       kontak: kontak),
-  TravelDestination(
+  FasilitasModel(
       id: 5,
-      name: "Bunga Bangkai",
-      category: 'popular',
+      name: "Antelope E-Bike",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1724258391590-6cfdc2d783b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1724258474555-1c850b2ccda6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -88,12 +87,12 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1703769605328-01120ea51ee0?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Bunga Bangkai",
+      description: "Antelope E-Bike",
       kontak: kontak),
-  TravelDestination(
+  FasilitasModel(
       id: 6,
-      name: "Taman Lumut",
-      category: 'popular',
+      name: "Sepeda",
+      category: 'fasilitas',
       image: [
         "https://images.unsplash.com/photo-1724258391590-6cfdc2d783b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1724258474555-1c850b2ccda6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -101,6 +100,6 @@ List<TravelDestination> listDestination = [
         "https://images.unsplash.com/photo-1703769605328-01120ea51ee0?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       ],
       location: '',
-      description: "Taman Lumut",
+      description: "Sepeda",
       kontak: kontak),
 ];

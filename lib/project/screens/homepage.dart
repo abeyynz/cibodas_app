@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
       .where((element) => element.category == 'fasilitas')
       .toList();
 
-  List<ArtikelModel> rekomendasi = listArtikel
-      .where((element) => element.category == 'rekomendasi')
+  List<ArtikelModel> artikel= listArtikel
+      .where((element) => element.category == 'artikel')
       .toList();
 
   List<IconData> icons = [
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 20),
                     Column(
                       children: List.generate(
-                        rekomendasi.length,
+                        artikel.length,
                         (index) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: GestureDetector(
@@ -203,12 +203,12 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (_) => ShowArtikel(
-                                      artikel: rekomendasi[index]),
+                                      artikel: artikel[index]),
                                 ),
                               );
                             },
                             child: ShowArtikel(
-                                artikel: rekomendasi[index]),
+                                artikel: artikel[index]),
                           ),
                         ),
                       ),

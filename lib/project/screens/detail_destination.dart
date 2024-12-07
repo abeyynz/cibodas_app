@@ -51,154 +51,11 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                           },
                           children: List.generate(
                             widget.destination.image!.length,
-                            (index) => Image.network(
+                            (index) => Image.asset(
                               fit: BoxFit.cover,
                               widget.destination.image![index],
                             ),
                           ),
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Spacer(),
-                            GestureDetector(
-                              child: Container(
-                                height: 75,
-                                width: 75,
-                                margin: const EdgeInsets.only(
-                                    right: 10, bottom: 10),
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 2, color: Colors.white),
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: DecorationImage(
-                                    image:
-                                        widget.destination.image!.length - 1 !=
-                                                pageView
-                                            ? NetworkImage(
-                                                widget.destination
-                                                    .image![pageView + 1],
-                                              )
-                                            : NetworkImage(
-                                                widget.destination.image![0],
-                                              ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              color: Colors.black.withOpacity(0.7),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: List.generate(
-                                        widget.destination.image!.length,
-                                        (index) => GestureDetector(
-                                          onTap: () {
-                                            if (pageController.hasClients) {
-                                              pageController.animateToPage(
-                                                  index,
-                                                  duration: const Duration(
-                                                      milliseconds: 500),
-                                                  curve: Curves.easeInOut);
-                                            }
-                                          },
-                                          child: AnimatedContainer(
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            height: 4,
-                                            width: 17,
-                                            margin:
-                                                const EdgeInsets.only(right: 5),
-                                            decoration: BoxDecoration(
-                                              color: pageView == index
-                                                  ? Colors.white
-                                                  : Colors.white
-                                                      .withOpacity(0.4),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              widget.destination.name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                const Icon(
-                                                  Icons.location_on_outlined,
-                                                  color: Colors.white,
-                                                  size: 18,
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  widget.destination.location,
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.amber[800],
-                                                  size: 23,
-                                                ),
-                                                
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
@@ -216,18 +73,15 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.60,
                     child: const TabBar(
-                      labelColor: dTextColor,
+                      labelColor: kButtonColor,
                       labelStyle:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                      unselectedLabelColor: Colors.black,
-                      indicatorColor: dTextColor,
-                      dividerColor: Colors.transparent,
+                      // unselectedLabelColor: kButtonColor,
+                      // indicatorColor: dTextColor,
+                      // dividerColor: Colors.transparent,
                       tabs: [
                         Tab(
                           text: 'Deskripsi',
-                        ),
-                        Tab(
-                          text: "Review",
                         ),
                       ],
                     ),
@@ -237,75 +91,75 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.destination.description,
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 14,
-                                  height: 1.5,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Kontak Kami",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.destination.description,
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    height: 1.5,
                                   ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.location_on, size: 20, color: Colors.black),
-                                      SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          "Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat, 43253",
+                                ),
+                                const SizedBox(height: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Kontak Kami",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.location_on, size: 20, color: Colors.black),
+                                        SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            "Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat, 43253",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 16),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.phone, size: 20, color: Colors.black),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          "(+62) 812-2466-7108",
                                           style: TextStyle(fontSize: 13),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.phone, size: 20, color: Colors.black),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        "(+62) 812-2466-7108",
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.email, size: 20, color: Colors.black),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        "info@cibodas.id",
-                                        style: TextStyle(fontSize: 13),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                                      ],
+                                    ),
+                                    SizedBox(height: 16),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.email, size: 20, color: Colors.black),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          "info@cibodas.id",
+                                          style: TextStyle(fontSize: 13),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const Center(
-                          child: Text("Tidak Ada Review"),
                         ),
                       ],
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -434,17 +288,17 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black12),
-          ),
-          child: const Icon(
-            Icons.bookmark_border_rounded,
-            size: 30,
-          ),
-        ),
+        // Container(
+        //   padding: const EdgeInsets.all(5),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(10),
+        //     border: Border.all(color: Colors.black12),
+        //   ),
+        //   child: const Icon(
+        //     Icons.bookmark_border_rounded,
+        //     size: 30,
+        //   ),
+        // ),
       ],
     );
   }

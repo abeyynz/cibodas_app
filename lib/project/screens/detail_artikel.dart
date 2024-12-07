@@ -1,10 +1,11 @@
 import 'package:app_cibodas/const.dart';
+import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailArtikel extends StatefulWidget {
-  final TravelDestination destination;
-  const DetailArtikel({super.key, required this.destination});
+  final ArtikelModel artikel;
+  const DetailArtikel({super.key, required this.artikel});
 
   @override
   State<DetailArtikel> createState() => _DetailArtikelState();
@@ -50,10 +51,10 @@ class _DetailArtikelState extends State<DetailArtikel> {
                             });
                           },
                           children: List.generate(
-                            widget.destination.image!.length,
-                            (index) => Image.network(
+                            widget.artikel.image!.length,
+                            (index) => Image.asset(
                               fit: BoxFit.cover,
-                              widget.destination.image![index],
+                              widget.artikel.image![index],
                             ),
                           ),
                         ),
@@ -74,14 +75,14 @@ class _DetailArtikelState extends State<DetailArtikel> {
                                   borderRadius: BorderRadius.circular(15),
                                   image: DecorationImage(
                                     image:
-                                        widget.destination.image!.length - 1 !=
+                                        widget.artikel.image!.length - 1 !=
                                                 pageView
-                                            ? NetworkImage(
-                                                widget.destination
+                                            ? AssetImage(
+                                                widget.artikel
                                                     .image![pageView + 1],
                                               )
-                                            : NetworkImage(
-                                                widget.destination.image![0],
+                                            : AssetImage(
+                                                widget.artikel.image![0],
                                               ),
                                     fit: BoxFit.cover,
                                   ),
@@ -98,7 +99,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: List.generate(
-                                        widget.destination.image!.length,
+                                        widget.artikel.image!.length,
                                         (index) => GestureDetector(
                                           onTap: () {
                                             if (pageController.hasClients) {
@@ -142,7 +143,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              widget.destination.name,
+                                              widget.artikel.title,
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.white,
@@ -152,44 +153,28 @@ class _DetailArtikelState extends State<DetailArtikel> {
                                             const SizedBox(
                                               height: 5,
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                const Icon(
-                                                  Icons.location_on_outlined,
-                                                  color: Colors.white,
-                                                  size: 18,
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  widget.destination.location,
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.amber[800],
-                                                  size: 23,
-                                                ),
-                                                
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   crossAxisAlignment:
+                                            //       CrossAxisAlignment.end,
+                                            //   children: [
+                                            //     const Icon(
+                                            //       Icons.location_on_outlined,
+                                            //       color: Colors.white,
+                                            //       size: 18,
+                                            //     ),
+                                            //     const SizedBox(
+                                            //       width: 5,
+                                            //     ),
+                                            //     // Text(
+                                            //     //   widget.artikel.description,
+                                            //     //   style: const TextStyle(
+                                            //     //     fontSize: 13,
+                                            //     //     color: Colors.white,
+                                            //     //     fontWeight: FontWeight.w500,
+                                            //     //   ),
+                                            //     // ),
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                       ],
@@ -226,9 +211,6 @@ class _DetailArtikelState extends State<DetailArtikel> {
                         Tab(
                           text: 'Deskripsi',
                         ),
-                        Tab(
-                          text: "Review",
-                        ),
                       ],
                     ),
                   ),
@@ -237,87 +219,40 @@ class _DetailArtikelState extends State<DetailArtikel> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Text(
-                            widget.destination.description,
-                            maxLines: 3,
-                            style: const TextStyle(
-                                color: Colors.black54,
-                                fontSize: 14,
-                                height: 1.5),
-                          ),
-                        ),
-                        const Center(
-                          child: Text("Tidak Ada Review"),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Harga',
-                          style: TextStyle(
-                            fontSize: 15,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.4, // Lebar gambar
+                                height: 150, // Atur tinggi gambar
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                    image: AssetImage(widget.artikel.image![0]),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10), // Jarak antara gambar dan teks
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                    widget.artikel.description,
+                                    style: const TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 14,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: kButtonColor,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.shopping_cart_outlined,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Masukkan Keranjang',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),
@@ -376,19 +311,8 @@ class _DetailArtikelState extends State<DetailArtikel> {
         ),
         const SizedBox(
           child: Text(
-            "Detail Destinasi",
+            "Detail Artikel",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black12),
-          ),
-          child: const Icon(
-            Icons.bookmark_border_rounded,
-            size: 30,
           ),
         ),
       ],

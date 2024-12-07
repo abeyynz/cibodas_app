@@ -263,43 +263,37 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
   }
 
   Widget detailAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black12),
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 30,
-            ),
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black12),
+          ),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
           ),
         ),
-        const SizedBox(
+      ),
+      Expanded(
+        child: Center(
           child: Text(
-            "Detail Destinasi",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            widget.destination.name, // Menampilkan nama destinasi
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            overflow: TextOverflow.ellipsis, // Jika teks terlalu panjang, gunakan elipsis
           ),
         ),
-        // Container(
-        //   padding: const EdgeInsets.all(5),
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(10),
-        //     border: Border.all(color: Colors.black12),
-        //   ),
-        //   child: const Icon(
-        //     Icons.bookmark_border_rounded,
-        //     size: 30,
-        //   ),
-        // ),
-      ],
-    );
-  }
+      ),
+      const SizedBox(width: 30), // Placeholder untuk keseimbangan visual
+    ],
+  );
+}
+
 }

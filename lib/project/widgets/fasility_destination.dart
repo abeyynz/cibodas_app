@@ -35,7 +35,6 @@ class FasilityDestination extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Colors.black,
           ),
-          textAlign: TextAlign.center,
         ),
       ],
     );

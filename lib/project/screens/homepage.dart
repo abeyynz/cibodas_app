@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) =>
-                                        DetailFasilitas(destination: fasilitas[index]),
+                                        DetailFasilitas(fasilitas: fasilitas[index]),
                                   ),
                                 );
                               },

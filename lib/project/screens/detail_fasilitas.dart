@@ -4,8 +4,8 @@ import 'package:app_cibodas/model/fasilitas_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailFasilitas extends StatefulWidget {
-  final FasilitasModel destination;
-  const DetailFasilitas({super.key, required this.destination});
+  final FasilitasModel fasilitas;
+  const DetailFasilitas({super.key, required this.fasilitas});
 
   @override
   State<DetailFasilitas> createState() => _DetailFasilitasState();
@@ -51,10 +51,10 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
                             });
                           },
                           children: List.generate(
-                            widget.destination.image!.length,
+                            widget.fasilitas.image!.length,
                             (index) => Image.asset(
                               fit: BoxFit.cover,
-                              widget.destination.image![index],
+                              widget.fasilitas.image![index],
                             ),
                           ),
                         ),
@@ -98,7 +98,7 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.destination.description,
+                                  widget.fasilitas.description,
                                   style: const TextStyle(
                                     color: Colors.black54,
                                     fontSize: 14,
@@ -198,43 +198,37 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
   }
 
   Widget detailAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black12),
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 30,
-            ),
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black12),
+          ),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
           ),
         ),
-        const SizedBox(
+      ),
+      Expanded(
+        child: Center(
           child: Text(
-            "Detail Destinasi",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            widget.fasilitas.name, // Menampilkan nama destinasi
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            overflow: TextOverflow.ellipsis, // Jika teks terlalu panjang, gunakan elipsis
           ),
         ),
-        // Container(
-        //   padding: const EdgeInsets.all(5),
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(10),
-        //     border: Border.all(color: Colors.black12),
-        //   ),
-        //   child: const Icon(
-        //     Icons.bookmark_border_rounded,
-        //     size: 30,
-        //   ),
-        // ),
-      ],
-    );
-  }
+      ),
+      const SizedBox(width: 30), // Placeholder untuk keseimbangan visual
+    ],
+  );
+}
+
 }

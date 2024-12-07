@@ -290,32 +290,37 @@ class _DetailArtikelState extends State<DetailArtikel> {
   }
 
   Widget detailAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black12),
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 30,
-            ),
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black12),
+          ),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
           ),
         ),
-        const SizedBox(
+      ),
+      Expanded(
+        child: Center(
           child: Text(
-            "Detail Artikel",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            widget.artikel.title, // Menampilkan nama destinasi
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            overflow: TextOverflow.ellipsis, // Jika teks terlalu panjang, gunakan elipsis
           ),
         ),
-      ],
-    );
-  }
+      ),
+      const SizedBox(width: 30), // Placeholder untuk keseimbangan visual
+    ],
+  );
+}
+
 }

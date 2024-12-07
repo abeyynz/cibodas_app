@@ -40,7 +40,7 @@ class ShowArtikel extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   artikel.description,
-                  maxLines: 3,
+                  maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 9,

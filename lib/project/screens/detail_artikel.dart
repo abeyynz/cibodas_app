@@ -157,6 +157,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
   Widget buildAppBar() {
     return Container(
       padding: const EdgeInsets.all(8.0),
+      color: kButtonColor,  // Menambahkan background warna kButtonColor
       child: Row(
         children: [
           GestureDetector(
@@ -166,7 +167,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
             child: const Icon(
               Icons.arrow_back,
               size: 30,
-              color: Colors.black,
+              color: Colors.white,  // Ubah warna icon menjadi putih
             ),
           ),
           const SizedBox(width: 16),
@@ -176,6 +177,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
+                color: Colors.white,  // Ubah warna teks menjadi putih
                 overflow: TextOverflow.ellipsis,
               ),
             ),

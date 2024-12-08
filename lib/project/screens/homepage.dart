@@ -2,6 +2,7 @@ import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
+import 'package:app_cibodas/project/screens/all_destinations_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
@@ -78,12 +79,12 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Destinasi Cibodas',
                             style: TextStyle(
                               fontSize: 17,
@@ -91,16 +92,28 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black,
                             ),
                           ),
-                          Text(
-                            'Lihat Semua',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: kButtonBrightColor,
+                          // Hapus Text di sekitar TextButton
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AllDestinationsPage(destinations: popular),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Lihat Semua',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kButtonBrightColor,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     const SizedBox(height: 20),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -302,3 +315,23 @@ Widget buildSearchButton() {
     ),
   );
 }
+
+// lib
+// -model
+// --artikel_model.dart
+// --destination_model.dart
+// --fasilitas_model.dart
+// --landing_model.dart
+// -project
+// --screens
+// ---detail_artikel.dart
+// ---detail_destination.dart
+// ---detail_fasilitas.dart
+// ---homepage.dart
+// --widgets
+// ---fasility_destination.dart
+// ---kontak.dart
+// ---popular_destination.dart
+// ---show_artikel.dart
+// --const.dart
+// --main.dart

@@ -79,6 +79,7 @@ class _TicketPageState extends State<TicketPage> with SingleTickerProviderStateM
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: TabBarView(
+        
         controller: _tabController,
         children: [
           // Tab Tiket

@@ -7,6 +7,7 @@ import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
+import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/fasilitas.dart';
 import 'package:app_cibodas/project/widgets/popular_destination.dart';
 import 'package:app_cibodas/project/widgets/show_artikel.dart';
@@ -281,6 +282,22 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                       else if (index == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RestaurantPage(),
+                          ),
+                        );
+                      }
+                      else if (index == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TicketPage(),
+                          ),
+                        );
+                      }
+                      else if (index == 3) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

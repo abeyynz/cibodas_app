@@ -6,7 +6,7 @@ import 'package:app_cibodas/project/screens/all_destinations_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
-import 'package:app_cibodas/project/widgets/fasility_destination.dart';
+import 'package:app_cibodas/project/widgets/fasilitas.dart';
 import 'package:app_cibodas/project/widgets/popular_destination.dart';
 import 'package:app_cibodas/project/widgets/show_artikel.dart';
 import 'package:flutter/material.dart';

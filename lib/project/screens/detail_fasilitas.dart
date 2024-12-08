@@ -13,6 +13,7 @@ class DetailFasilitas extends StatefulWidget {
 class _DetailFasilitasState extends State<DetailFasilitas> {
   PageController pageController = PageController();
   int pageView = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +26,8 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
             buildAppBar(),
 
             // Gambar dengan scroll horizontal
-            Expanded(
-              flex: 3,
+            Container(
+              height: 250, // Tentukan tinggi yang tetap agar tidak ada Expanded
               child: Stack(
                 children: [
                   PageView(
@@ -116,73 +117,70 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
             ),
 
             // Deskripsi
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(
-                  child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.fasilitas.description,
-                                  style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 14,
-                                    height: 1.5,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Kontak Kami",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.location_on, size: 20, color: Colors.black),
-                                        SizedBox(width: 8),
-                                        Expanded(
-                                          child: Text(
-                                            "Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat, 43253",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 16),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.phone, size: 20, color: Colors.black),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "(+62) 812-2466-7108",
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 16),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.email, size: 20, color: Colors.black),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "info@cibodas.id",
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.fasilitas.description,
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Kontak Kami",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on, size: 20, color: Colors.black),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                "Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat, 43253",
+                                style: TextStyle(fontSize: 13),
+                              ),
                             ),
+                          ],
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Icon(Icons.phone, size: 20, color: Colors.black),
+                            SizedBox(width: 8),
+                            Text(
+                              "(+62) 812-2466-7108",
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Icon(Icons.email, size: 20, color: Colors.black),
+                            SizedBox(width: 8),
+                            Text(
+                              "info@cibodas.id",
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -222,5 +220,4 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
       ),
     );
   }
-
 }

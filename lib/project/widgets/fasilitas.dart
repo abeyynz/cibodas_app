@@ -1,5 +1,3 @@
-// import 'package:app_cibodas/const.dart';
-// import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
 import 'package:flutter/material.dart';
 

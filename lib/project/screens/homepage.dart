@@ -20,6 +20,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedPage = 0;
+  bool isNotificationClicked = false;
+  List<String> notifications = [
+    'Notifikasi 1',
+    'Notifikasi 2',
+    'Notifikasi 3',
+    'Notifikasi 4',
+    // Add more notifications here
+  ];
 
   List<TravelDestination> popular = listDestination
       .where((element) => element.category == 'popular')
@@ -44,23 +52,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: 
-          Image.asset(
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0, left: 1.0), // Make logo slightly raised
+          child: Image.asset(
             'assets/logo.png',
             width: 100,
             height: 100,
             fit: BoxFit.cover,
           ),
-        backgroundColor:
-            const Color(0xFF273228), // Dark green color from the image
+        ),
+        backgroundColor: const Color(0xFF273228), // Dark green color from the image
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
+            onPressed: () {
+              setState(() {
+                isNotificationClicked = !isNotificationClicked;
+              });
+              _showNotifications(context); // Menampilkan notifikasi setelah setState
+            },
+            icon: Icon(
               Icons.notifications,
-              color: Color(0xFFCC7F3F), // Orange color for the icon
+              color: isNotificationClicked ? const Color(0xFFCC7F3F) : Colors.white, // Change color when clicked
             ),
           ),
+
         ],
       ),
       backgroundColor: kBackgroundColor,
@@ -92,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black,
                             ),
                           ),
-                          // Hapus Text di sekitar TextButton
                           TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -261,7 +275,35 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
 
+  // Function to show notifications
+  void _showNotifications(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Notifikasi'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(
+              notifications.length,
+              (index) => ListTile(
+                title: Text(notifications[index]),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Tutup'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -315,23 +357,3 @@ Widget buildSearchButton() {
     ),
   );
 }
-
-// lib
-// -model
-// --artikel_model.dart
-// --destination_model.dart
-// --fasilitas_model.dart
-// --landing_model.dart
-// -project
-// --screens
-// ---detail_artikel.dart
-// ---detail_destination.dart
-// ---detail_fasilitas.dart
-// ---homepage.dart
-// --widgets
-// ---fasility_destination.dart
-// ---kontak.dart
-// ---popular_destination.dart
-// ---show_artikel.dart
-// --const.dart
-// --main.dart

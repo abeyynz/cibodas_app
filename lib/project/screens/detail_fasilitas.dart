@@ -17,15 +17,16 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      appBar: AppBar(
+        title: const Text('Detail Fasilitas'),
+        backgroundColor: kButtonColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Tombol kembali
-            buildAppBar(),
-
-            // Gambar dengan scroll horizontal
             Container(
               height: 250, // Tentukan tinggi yang tetap agar tidak ada Expanded
               child: Stack(
@@ -190,34 +191,4 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
     );
   }
 
-  Widget buildAppBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              size: 30,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              widget.fasilitas.name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

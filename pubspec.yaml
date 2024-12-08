@@ -90,3 +90,7 @@ flutter:
   # see https://flutter.dev/to/font-from-package
   assets :
     - assets/
+    - assets/gopay.png
+    - assets/ovo.png
+    - assets/dana.png
+    - assets/qris.png

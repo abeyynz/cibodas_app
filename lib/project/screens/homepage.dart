@@ -6,6 +6,7 @@ import 'package:app_cibodas/project/screens/all_destinations_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
+import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:app_cibodas/project/widgets/fasilitas.dart';
 import 'package:app_cibodas/project/widgets/popular_destination.dart';
 import 'package:app_cibodas/project/widgets/show_artikel.dart';
@@ -52,6 +53,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(bottom: 10.0, left: 1.0), // Make logo slightly raised
           child: Image.asset(
@@ -270,6 +272,22 @@ class _HomePageState extends State<HomePage> {
                       setState(() {
                         selectedPage = index;
                       });
+                      if (index == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HomePage(),
+                          ),
+                        );
+                      }
+                      else if (index == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RestaurantPage(),
+                          ),
+                        );
+                      }
                     },
                     child: Icon(
                       icons[index],

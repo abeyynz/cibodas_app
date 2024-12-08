@@ -154,12 +154,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Fasilitas Cibodas',
                             style: TextStyle(
                               fontSize: 17,
@@ -167,11 +167,21 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black,
                             ),
                           ),
-                          Text(
-                            'Lihat Semua',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: kButtonBrightColor,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AllDestinationsPage(destinations: popular),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Lihat Semua',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: kButtonBrightColor,
+                              ),
                             ),
                           ),
                         ],

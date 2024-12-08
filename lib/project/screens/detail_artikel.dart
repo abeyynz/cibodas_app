@@ -17,14 +17,16 @@ class _DetailArtikelState extends State<DetailArtikel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      appBar: AppBar(
+        title: const Text('Detail Artikel'),
+        backgroundColor: kButtonColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // AppBar dengan tombol kembali
-            buildAppBar(),
-
             // Gambar artikel (dengan PageView jika ada lebih dari satu gambar)
             Expanded(
               flex: 3,
@@ -154,36 +156,5 @@ class _DetailArtikelState extends State<DetailArtikel> {
     );
   }
 
-  Widget buildAppBar() {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      color: kButtonColor,  // Menambahkan background warna kButtonColor
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              size: 30,
-              color: Colors.white,  // Ubah warna icon menjadi putih
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              "Detail Artikel",
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,  // Ubah warna teks menjadi putih
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  
 }

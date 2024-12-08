@@ -1,6 +1,4 @@
 import 'package:app_cibodas/model/artikel_model.dart';
-import 'package:app_cibodas/model/destination_model.dart';
-import 'package:app_cibodas/const.dart';
 import 'package:flutter/material.dart';
 
 class ShowArtikel extends StatelessWidget {
@@ -19,7 +17,7 @@ class ShowArtikel extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
       child: Row(
         children: [
           Expanded(

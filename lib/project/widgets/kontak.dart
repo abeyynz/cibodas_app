@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class KontakKami extends StatelessWidget {
 final String kontak;
-KontakKami({required this.kontak});
+const KontakKami({super.key, required this.kontak});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kontak Kami"),
+        title: const Text("Kontak Kami"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

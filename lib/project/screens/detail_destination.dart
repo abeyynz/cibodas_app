@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class DetailDestinasi extends StatefulWidget {
   final TravelDestination destination;
+
   const DetailDestinasi({super.key, required this.destination});
 
   @override
@@ -13,86 +14,145 @@ class DetailDestinasi extends StatefulWidget {
 class _DetailDestinasiState extends State<DetailDestinasi> {
   PageController pageController = PageController();
   int pageView = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Memulai animasi autoplay untuk gambar
+    Future.delayed(Duration.zero, () {
+      if (widget.destination.image!.length > 1) {
+        _autoScrollImages();
+      }
+    });
+  }
+
+  void _autoScrollImages() {
+    Future.doWhile(() async {
+      await Future.delayed(const Duration(seconds: 3));
+      if (pageController.hasClients) {
+        int nextPage = (pageView + 1) % widget.destination.image!.length;
+        pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+        setState(() {
+          pageView = nextPage;
+        });
+      }
+      return true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: Column(
-        children: [
-          buildAppBar(),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.54,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 5),
-                        blurRadius: 7,
-                        spreadRadius: 1,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Tombol kembali
+            buildAppBar(),
+
+            // Gambar dengan scroll horizontal
+            Expanded(
+              flex: 3,
+              child: Stack(
+                children: [
+                  PageView(
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        pageView = value;
+                      });
+                    },
+                    children: List.generate(
+                      widget.destination.image!.length,
+                      (index) => Image.asset(
+                        widget.destination.image![index],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
-                    ],
+                    ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Stack(
-                      children: [
-                        PageView(
-                          controller: pageController,
-                          onPageChanged: (value) {
-                            setState(() {
-                              pageView = value;
-                            });
-                          },
-                          children: List.generate(
-                            widget.destination.image!.length,
-                            (index) => Image.asset(
-                              fit: BoxFit.cover,
-                              widget.destination.image![index],
+                  if (widget.destination.image!.length > 1) // Indikator PageView
+                    Positioned(
+                      bottom: 10,
+                      left: MediaQuery.of(context).size.width * 0.5 - 30,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          widget.destination.image!.length,
+                          (index) => AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            width: pageView == index ? 12 : 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: pageView == index
+                                  ? Colors.white
+                                  : Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(4),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: DefaultTabController(
-              length: 2,
+
+            // Nama tempat
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.60,
-                    child: const TabBar(
-                      labelColor: kButtonColor,
-                      labelStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                      // unselectedLabelColor: kButtonColor,
-                      // indicatorColor: dTextColor,
-                      // dividerColor: Colors.transparent,
-                      tabs: [
-                        Tab(
-                          text: 'Deskripsi',
-                        ),
-                      ],
+                  // Nama destinasi
+                  Text(
+                    widget.destination.name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SingleChildScrollView(
-                            child: Column(
+
+                  // Ikon lokasi dan teks lokasi
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          widget.destination.location,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.blue, // Warna teks berbeda
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Deskripsi
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -104,10 +164,10 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                Column(
+                                const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Kontak Kami",
                                       style: TextStyle(
                                         fontSize: 15,
@@ -115,7 +175,7 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                                         color: Colors.black87,
                                       ),
                                     ),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     Row(
                                       children: [
                                         Icon(Icons.location_on, size: 20, color: Colors.black),
@@ -154,146 +214,43 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                ],
+                ),
               ),
             ),
-          ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Container(
-          //     height: 80,
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.only(
-          //         topLeft: Radius.circular(15),
-          //         topRight: Radius.circular(15),
-          //       ),
-          //     ),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Padding(
-          //           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               Text(
-          //                 'Harga',
-          //                 style: TextStyle(
-          //                   fontSize: 15,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //         TextButton(
-          //           onPressed: () {},
-          //           child: Container(
-          //             padding: EdgeInsets.symmetric(
-          //               horizontal: 15,
-          //               vertical: 15,
-          //             ),
-          //             decoration: BoxDecoration(
-          //               borderRadius: BorderRadius.circular(15),
-          //               color: kButtonColor,
-          //             ),
-          //             child: Row(
-          //               children: [
-          //                 Icon(
-          //                   Icons.shopping_cart_outlined,
-          //                   color: Colors.white,
-          //                   size: 14,
-          //                 ),
-          //                 SizedBox(
-          //                   width: 5,
-          //                 ),
-          //                 Text(
-          //                   'Masukkan Keranjang',
-          //                   style: TextStyle(
-          //                     fontSize: 12,
-          //                     fontWeight: FontWeight.w600,
-          //                     color: Colors.white,
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget buildAppBar() {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
-        ),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.7),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(0, 5)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              widget.destination.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
         ],
       ),
-      child: SafeArea(
-          child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-          child: detailAppBar(),
-        ),
-      )),
     );
   }
-
-  Widget detailAppBar() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black12),
-          ),
-          child: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-          ),
-        ),
-      ),
-      Expanded(
-        child: Center(
-          child: Text(
-            widget.destination.name, // Menampilkan nama destinasi
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            overflow: TextOverflow.ellipsis, // Jika teks terlalu panjang, gunakan elipsis
-          ),
-        ),
-      ),
-      const SizedBox(width: 30), // Placeholder untuk keseimbangan visual
-    ],
-  );
-}
-
 }

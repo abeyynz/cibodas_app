@@ -7,7 +7,7 @@ const kontak =
 class ArtikelModel {
   final int id;
   final List<String>? image;
-  final String title, description, category;
+  final String title, description, category, postDate, readTime;
 
   ArtikelModel({
     required this.id,
@@ -15,6 +15,8 @@ class ArtikelModel {
     required this.category,
     required this.image,
     required this.description,
+    required this.postDate,
+    required this.readTime,
   });
 }
 
@@ -23,6 +25,8 @@ List<ArtikelModel> listArtikel = [
   ArtikelModel(
       id: 1,
       title: "Ini Dia, Menu Makanan Hemat di Acara Sunset di Kebun",
+      postDate: "3 years ago",
+      readTime: "3",
       category: 'artikel',
       image: [
         "assets/artikel1.jpeg",
@@ -33,6 +37,8 @@ List<ArtikelModel> listArtikel = [
   ArtikelModel(
       id: 2,
       title: "Keindahan Sunset di Kebun Raya Cibodas",
+      postDate: "3 years ago",
+      readTime: "3",
       category: 'artikel',
       image: [
         "assets/artikel.jpg",

@@ -2,6 +2,7 @@ import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
+import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
 import 'package:app_cibodas/project/widgets/fasility_destination.dart';
@@ -77,12 +78,12 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Destinasi Cibodas',
                             style: TextStyle(
                               fontSize: 17,
@@ -126,12 +127,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Fasilitas Cibodas',
                             style: TextStyle(
                               fontSize: 17,
@@ -175,12 +176,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Artikel Untuk Kamu',
                             style: TextStyle(
                               fontSize: 17,
@@ -202,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => ShowArtikel(
+                                  builder: (_) => DetailArtikel(
                                       artikel: artikel[index]),
                                 ),
                               );
@@ -220,7 +221,7 @@ class _HomePageState extends State<HomePage> {
             //menu
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: kButtonColor,
               ),
               child: Row(
@@ -255,13 +256,13 @@ class _HomePageState extends State<HomePage> {
 Widget buildAppBar() {
   return Container(
     height: 80,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       color: Colors.white,
     ),
     child: SafeArea(
         child: Center(
       child: Padding(
-        padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
         child: buildSearchButton(),
       ),
     )),
@@ -283,7 +284,7 @@ Widget buildSearchButton() {
         ),
       ],
     ),
-    child: TextField(
+    child: const TextField(
       decoration: InputDecoration(
         hintText: 'cari destinasi...',
         hintStyle: TextStyle(

@@ -1,5 +1,4 @@
 import 'package:app_cibodas/const.dart';
-import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
 import 'package:flutter/material.dart';
 
@@ -18,83 +17,111 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: Column(
-        children: [
-          buildAppBar(),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.54,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(0, 5),
-                        blurRadius: 7,
-                        spreadRadius: 1,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Tombol kembali
+            buildAppBar(),
+
+            // Gambar dengan scroll horizontal
+            Expanded(
+              flex: 3,
+              child: Stack(
+                children: [
+                  PageView(
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        pageView = value;
+                      });
+                    },
+                    children: List.generate(
+                      widget.fasilitas.image!.length,
+                      (index) => Image.asset(
+                        widget.fasilitas.image![index],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
-                    ],
+                    ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Stack(
-                      children: [
-                        PageView(
-                          controller: pageController,
-                          onPageChanged: (value) {
-                            setState(() {
-                              pageView = value;
-                            });
-                          },
-                          children: List.generate(
-                            widget.fasilitas.image!.length,
-                            (index) => Image.asset(
-                              fit: BoxFit.cover,
-                              widget.fasilitas.image![index],
+                  if (widget.fasilitas.image!.length > 1) // Indikator PageView
+                    Positioned(
+                      bottom: 10,
+                      left: MediaQuery.of(context).size.width * 0.5 - 30,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          widget.fasilitas.image!.length,
+                          (index) => AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            width: pageView == index ? 12 : 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: pageView == index
+                                  ? Colors.white
+                                  : Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(4),
                             ),
                           ),
                         ),
-          
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: DefaultTabController(
-              length: 2,
+
+            // Nama tempat
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.60,
-                    child: const TabBar(
-                      labelColor: kButtonColor,
-                      labelStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                      // unselectedLabelColor: Colors.black,
-                      // indicatorColor: dTextColor,
-                      // dividerColor: Colors.transparent,
-                      tabs: [
-                        Tab(
-                          text: 'Deskripsi',
-                        ),
-                      ],
+                  // Nama destinasi
+                  Text(
+                    widget.fasilitas.name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SingleChildScrollView(
-                            child: Column(
+
+                  // Ikon lokasi dan teks lokasi
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          widget.fasilitas.location,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.blue, // Warna teks berbeda
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Deskripsi
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -106,10 +133,10 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                Column(
+                                const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Kontak Kami",
                                       style: TextStyle(
                                         fontSize: 15,
@@ -117,7 +144,7 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
                                         color: Colors.black87,
                                       ),
                                     ),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     Row(
                                       children: [
                                         Icon(Icons.location_on, size: 20, color: Colors.black),
@@ -156,12 +183,38 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildAppBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              widget.fasilitas.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
@@ -169,66 +222,5 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
       ),
     );
   }
-
-  Widget buildAppBar() {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
-        ),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.7),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(0, 5)),
-        ],
-      ),
-      child: SafeArea(
-          child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-          child: detailAppBar(),
-        ),
-      )),
-    );
-  }
-
-  Widget detailAppBar() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black12),
-          ),
-          child: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-          ),
-        ),
-      ),
-      Expanded(
-        child: Center(
-          child: Text(
-            widget.fasilitas.name, // Menampilkan nama destinasi
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            overflow: TextOverflow.ellipsis, // Jika teks terlalu panjang, gunakan elipsis
-          ),
-        ),
-      ),
-      const SizedBox(width: 30), // Placeholder untuk keseimbangan visual
-    ],
-  );
-}
 
 }

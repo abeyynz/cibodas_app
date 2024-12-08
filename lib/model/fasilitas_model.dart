@@ -9,6 +9,7 @@ class FasilitasModel {
   final List<String>? image;
   final String name, description, category, location, kontak;
 
+  // ignore: prefer_typing_uninitialized_variables
   var price;
 
   FasilitasModel({

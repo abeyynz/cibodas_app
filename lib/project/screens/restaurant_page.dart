@@ -1,4 +1,5 @@
 import 'package:app_cibodas/const.dart';
+import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:flutter/material.dart';
@@ -161,7 +162,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const RestaurantPage(),
+                            builder: (_) => const HelpCenterPage(),
                           ),
                         );
                       }

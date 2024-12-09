@@ -1,6 +1,7 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/payment_method_model.dart';
 import 'package:app_cibodas/model/ticket_model.dart';
+import 'package:app_cibodas/project/screens/payment_page.dart';
 import 'package:flutter/material.dart';
 
 class OrderPage extends StatefulWidget {
@@ -15,11 +16,14 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> {
   int ticketCount = 1; // Jumlah tiket awal
   late int totalPrice;
+  final TextEditingController userNameController = TextEditingController();
+  PaymentMethod? selectedMethod; // Menyimpan metode pembayaran yang dipilih
 
   @override
   void initState() {
     super.initState();
-    totalPrice = widget.ticket.price; // Total harga berdasarkan harga tiket awal
+    totalPrice =
+        widget.ticket.price; // Total harga berdasarkan harga tiket awal
   }
 
   // Fungsi untuk menambah tiket
@@ -61,17 +65,20 @@ class _OrderPageState extends State<OrderPage> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: userNameController,
                 decoration: InputDecoration(
                   hintText: 'Masukkan nama Anda',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kButtonColor), // Mengubah warna outline saat fokus
+                    borderSide: BorderSide(
+                        color:
+                            kButtonColor), // Mengubah warna outline saat fokus
                     borderRadius: BorderRadius.circular(8),
                   ),
                   contentPadding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 ),
               ),
               const SizedBox(height: 24),
@@ -130,74 +137,98 @@ class _OrderPageState extends State<OrderPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
 
-            // Kolom untuk jumlah tiket
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Menjaga elemen-elemen berada di kiri dan kanan
-              children: [
-                const Text(
-                  'Jumlah Tiket: ',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2), // Menambah padding
-                  decoration: BoxDecoration(
-                    color: kButtonBrightColor.withOpacity(0.7), // Latar belakang transparan dengan warna oranye
-                    borderRadius: BorderRadius.circular(50), // Membuat sudut melengkung
+              // Kolom untuk jumlah tiket
+              Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceBetween, // Menjaga elemen-elemen berada di kiri dan kanan
+                children: [
+                  const Text(
+                    ' ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
-                  child: Row(
+                  Row(
                     children: [
-                      IconButton(
-                        onPressed: _decreaseTicketCount,
-                        icon: const Icon(Icons.remove, color: Colors.white),
+                      Container(
+                        width:
+                            36, // Lebar container untuk membuatnya lebih kecil
+                        height:
+                            36, // Tinggi container untuk membuatnya lebih kecil
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              12), // Lebih kecil dan bulat
+                          color: kButtonColor,
+                        ),
+                        child: IconButton(
+                          padding: EdgeInsets.zero, // Hilangkan padding default
+                          constraints: const BoxConstraints(), // Batasi ukuran
+                          onPressed: _decreaseTicketCount,
+                          icon: const Icon(Icons.remove,
+                              color: Colors.white,
+                              size: 20), // Ukuran ikon lebih kecil
+                        ),
                       ),
+                      const SizedBox(width: 8), // Jarak antar elemen
                       Text(
                         '$ticketCount',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                        onPressed: _increaseTicketCount,
-                        icon: const Icon(Icons.add, color: Colors.white),
+                      const SizedBox(width: 8), // Jarak antar elemen
+                      Container(
+                        width: 36, // Lebar container
+                        height: 36, // Tinggi container
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: kButtonColor,
+                        ),
+                        child: IconButton(
+                          padding: EdgeInsets.zero, // Hilangkan padding default
+                          constraints: const BoxConstraints(), // Batasi ukuran
+                          onPressed: _increaseTicketCount,
+                          icon: const Icon(Icons.add,
+                              color: Colors.white,
+                              size: 20), // Ukuran ikon lebih kecil
+                        ),
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
-
-
-            const SizedBox(height: 16),
-
-            // Bagian Total Harga
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: kButtonBrightColor.withOpacity(0.2),
-                border: Border.all(color: kButtonBrightColor), // Garis tepi berwarna oranye
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Total Harga:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Rp${totalPrice.toStringAsFixed(2)}', // Menggunakan totalPrice untuk menampilkan harga
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange,
-                    ),
-                  ),
                 ],
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              // Bagian Total Harga
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                decoration: BoxDecoration(
+                  color: kButtonBrightColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: kButtonBrightColor), // Garis tepi berwarna oranye
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Total Harga:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Rp${totalPrice.toStringAsFixed(2)}', // Menggunakan totalPrice untuk menampilkan harga
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: kButtonColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
               // Metode pembayaran
               const Text(
                 'Metode Pembayaran',
@@ -208,6 +239,9 @@ class _OrderPageState extends State<OrderPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
+                    color: selectedMethod == method
+                        ? kButtonBrightColor.withOpacity(0.2) // Warna saat dipilih
+                        : Colors.white, // Warna default
                     child: ListTile(
                       leading: Image.asset(
                         method.image,
@@ -223,10 +257,67 @@ class _OrderPageState extends State<OrderPage> {
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {
-                        // Tambahkan aksi pembayaran
+                        setState(() {
+                          selectedMethod = method;
+                        });
                       },
                     ),
                   )),
+              const SizedBox(height: 36),
+
+              // Tombol Pesan
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Validasi input
+                    if (userNameController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Masukkan nama Anda!')),
+                      );
+                      return;
+                    }
+                    if (selectedMethod == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Pilih metode pembayaran!')),
+                      );
+                      return;
+                    }
+
+                    // Navigasi ke PaymentPage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentPage(
+                          selectedMethod: selectedMethod!,
+                          ticket: widget.ticket,
+                          ticketCount: ticketCount,
+                          totalPrice: totalPrice,
+                          userName: userNameController.text,
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kButtonColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Pesan',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
 import 'package:app_cibodas/project/screens/all_destinations_page.dart';
+import 'package:app_cibodas/project/screens/all_facilities_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
@@ -174,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => AllDestinationsPage(destinations: popular),
+                                  builder: (_) => AllFacilitiesPage(fasilitas: fasilitas),
                                 ),
                               );
                             },

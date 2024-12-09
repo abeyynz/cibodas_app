@@ -1,4 +1,5 @@
 import 'package:app_cibodas/project/screens/homepage.dart';
+import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

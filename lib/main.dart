@@ -1,6 +1,6 @@
-import 'package:app_cibodas/project/screens/homepage.dart';
-import 'package:app_cibodas/project/screens/restaurant_page.dart';
+
 import 'package:flutter/material.dart';
+import 'project/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,34 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
-
-class BelajarNavBar extends StatefulWidget {
-  const BelajarNavBar({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _BelajarNavBarState createState() => _BelajarNavBarState();
-}
-
-class _BelajarNavBarState extends State<BelajarNavBar> {
-  int _selectedNavbar = 0;
-
-  void _changeSelectedNavBar(int index) {
-    setState(() {
-      _selectedNavbar = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      
+    return MaterialApp(
+      title: 'Cibodas Kebun Raya',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const SplashScreen(),  // Splash screen sebagai home
+      debugShowCheckedModeBanner: false,  // Menyembunyikan banner debug
     );
   }
 }

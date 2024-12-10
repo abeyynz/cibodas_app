@@ -1,6 +1,8 @@
 import 'package:app_cibodas/const.dart';
+import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/detail_restaurant.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
+import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cibodas/model/restaurant_model.dart';  // Pastikan ini sudah benar
 
@@ -174,6 +176,22 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => const RestaurantPage(),
+                          ),
+                        );
+                      }
+                      else if (index == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TicketPage(),
+                          ),
+                        );
+                      }
+                      else if (index == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HelpCenterPage(),
                           ),
                         );
                       }

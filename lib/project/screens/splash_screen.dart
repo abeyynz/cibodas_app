@@ -2,7 +2,6 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/landing_page.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';  // Ganti dengan halaman utama Anda
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

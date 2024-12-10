@@ -1,5 +1,6 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
+import 'package:app_cibodas/project/screens/detail_restaurant.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class RestaurantPage extends StatefulWidget {
 class _RestaurantPageState extends State<RestaurantPage> {
   int selectedPage = 1;
   bool isNotificationClicked = false;
+  TextEditingController searchController = TextEditingController();
   List<String> notifications = [
     'Notifikasi 1',
     'Notifikasi 2',
@@ -22,13 +24,25 @@ class _RestaurantPageState extends State<RestaurantPage> {
     'Notifikasi 4',
   ];
 
+  List<RestaurantModel> restaurant= listRestaurant
+      .where((element) => element.category == 'restaurant')
+      .toList();
+  
+  List<RestaurantModel> filteredRestaurants = [];
+
   List<IconData> icons = [
     Icons.home,
     Icons.restaurant_menu,  
     Icons.local_activity,
     Icons.support_agent,
   ];
-  
+
+  @override
+  void initState() {
+    super.initState();
+    filteredRestaurants = restaurant; // Tampilkan semua restoran awalnya
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,12 +77,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
       body: SafeArea(
         child: Column(
           children: [
+      // Tambahkan tombol pencarian di bagian atas
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: buildSearchButton(),
+            ),
             // Menampilkan grid restoran
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: GridView.builder(
-                  itemCount: listRestaurant.length,  
+                  itemCount: filteredRestaurants.length,  
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Dua kolom per baris
                     mainAxisSpacing: 10, // Spasi antar baris
@@ -78,7 +97,12 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        // Menambahkan aksi ketika restoran dipilih
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => DetailRestaurant(restaurant: filteredRestaurants[index]),
+                          ),
+                        );// Menambahkan aksi ketika restoran dipilih
                       },
                       child: Card(
                         elevation: 4,
@@ -91,8 +115,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-                              child: Image.asset(
-                                listRestaurant[index].image,
+                               child: Image.asset(
+                                filteredRestaurants[index].image != null &&
+                                        filteredRestaurants[index]
+                                            .image!
+                                            .isNotEmpty
+                                    ? filteredRestaurants[index].image![0]
+                                    : "assets/default_image.jpg",
                                 width: double.infinity,
                                 height: 120,
                                 fit: BoxFit.cover,
@@ -101,7 +130,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                listRestaurant[index].name,
+                                filteredRestaurants[index].name,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -183,6 +212,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
       ),
     );
   }
+  void filterRestaurants(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredRestaurants = restaurant;
+      } else {
+        filteredRestaurants = restaurant.where((resto) {
+          return resto.name.toLowerCase().contains(query.toLowerCase());
+        }).toList();
+      }
+    });
+  }
   void _showNotifications(BuildContext context) {
     showDialog(
       context: context,
@@ -211,3 +251,37 @@ class _RestaurantPageState extends State<RestaurantPage> {
     );
   }
 }
+
+// Widget buildSearchButton() {
+//   return Container(
+//     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+//     decoration: BoxDecoration(
+//       color: kButtonColor,
+//       borderRadius: BorderRadius.circular(20),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.grey.withOpacity(0.8),
+//           spreadRadius: 2,
+//           blurRadius: 10,
+//           offset: const Offset(0, 5),
+//         ),
+//       ],
+//     ),
+//     child: const TextField(
+//       decoration: InputDecoration(
+//         hintText: 'cari restaurant...',
+//         hintStyle: TextStyle(
+//           color: Colors.white54,
+//           fontSize: 18,
+//         ),
+//         prefixIcon: Icon(Icons.search, color: Colors.white54, size: 28),
+//         border: InputBorder.none,
+//         contentPadding: EdgeInsets.symmetric(vertical: 12),
+//       ),
+//       style: TextStyle(
+//         color: Colors.white,
+//         fontSize: 18,
+//       ),
+//     ),
+//   );
+// }

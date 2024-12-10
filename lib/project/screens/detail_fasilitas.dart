@@ -18,7 +18,7 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Fasilitas'),
+        title: Text(widget.fasilitas.name),
         backgroundColor: kButtonColor,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -80,7 +80,6 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nama destinasi
                   Text(
                     widget.fasilitas.name,
                     style: const TextStyle(

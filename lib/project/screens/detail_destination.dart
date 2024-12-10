@@ -47,17 +47,18 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      appBar: AppBar(
+        title: Text(widget.destination.name),
+        backgroundColor: kButtonColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Tombol kembali
-            buildAppBar(),
-
-            // Gambar dengan scroll horizontal
-            Expanded(
-              flex: 3,
+          children: [ 
+           Container(
+              height: 250, // Tentukan tinggi yang tetap agar tidak ada Expanded
               child: Stack(
                 children: [
                   PageView(
@@ -219,37 +220,6 @@ class _DetailDestinasiState extends State<DetailDestinasi> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildAppBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.arrow_back,
-              size: 30,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              widget.destination.name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

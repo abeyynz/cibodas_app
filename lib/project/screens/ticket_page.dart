@@ -1,3 +1,4 @@
+import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/ticket_model.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
@@ -263,7 +264,7 @@ class _TicketPageState extends State<TicketPage>
                 icons[index],
                 size: 32,
                 color: selectedPage == index
-                    ? Colors.orange // Warna aktif
+                    ? iconColor // Warna aktif
                     : Colors.white.withOpacity(0.4), // Warna tidak aktif
               ),
             ),

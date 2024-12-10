@@ -3,17 +3,21 @@ import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/detail_restaurant.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
+import 'package:app_cibodas/project/widgets/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cibodas/model/restaurant_model.dart';  // Pastikan ini sudah benar
 
 class RestaurantPage extends StatefulWidget {
+  // final List<RestaurantModel> restaurant;
   const RestaurantPage({super.key});
   
   @override
-  State<RestaurantPage> createState() => _RestaurantPageState();
+  _RestaurantPageState createState() => _RestaurantPageState();
 }
 
 class _RestaurantPageState extends State<RestaurantPage> {
+  String searchQuery = "";
+  late List<RestaurantModel> filteredRestaurants;
   int selectedPage = 1;
   bool isNotificationClicked = false;
   TextEditingController searchController = TextEditingController();
@@ -27,8 +31,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
   List<RestaurantModel> restaurant= listRestaurant
       .where((element) => element.category == 'restaurant')
       .toList();
-  
-  List<RestaurantModel> filteredRestaurants = [];
 
   List<IconData> icons = [
     Icons.home,
@@ -37,10 +39,21 @@ class _RestaurantPageState extends State<RestaurantPage> {
     Icons.support_agent,
   ];
 
+  
   @override
   void initState() {
     super.initState();
     filteredRestaurants = restaurant; // Tampilkan semua restoran awalnya
+  }
+
+  void _filterRestaurants(String query) {
+    setState(() {
+      searchQuery = query.toLowerCase();
+      filteredRestaurants = restaurant
+          .where((restaurant) =>
+              restaurant.name.toLowerCase().contains(searchQuery))
+          .toList();
+    });
   }
 
 
@@ -75,155 +88,154 @@ class _RestaurantPageState extends State<RestaurantPage> {
         ],
       ),
       backgroundColor: const Color(0xFFF5F5F5),
-      body: SafeArea(
-        child: Column(
-          children: [
-      // Tambahkan tombol pencarian di bagian atas
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: buildSearchButton(),
-            ),
-            // Menampilkan grid restoran
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: GridView.builder(
-                  itemCount: filteredRestaurants.length,  
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Dua kolom per baris
-                    mainAxisSpacing: 10, // Spasi antar baris
-                    crossAxisSpacing: 10, // Spasi antar kolom
-                    childAspectRatio: 0.9, // Mengatur ukuran item agar lebih tinggi
+      body: Column(
+        children: <Widget>[
+          // Search Bar with green style
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                color: kButtonColor,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.8),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
                   ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => DetailRestaurant(restaurant: filteredRestaurants[index]),
-                          ),
-                        );// Menambahkan aksi ketika restoran dipilih
-                      },
-                      child: Card(
-                        elevation: 4,
-                        color: kButtonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-                               child: Image.asset(
-                                filteredRestaurants[index].image != null &&
-                                        filteredRestaurants[index]
-                                            .image!
-                                            .isNotEmpty
-                                    ? filteredRestaurants[index].image![0]
-                                    : "assets/default_image.jpg",
-                                width: double.infinity,
-                                height: 120,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                filteredRestaurants[index].name,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                ],
+              ),
+              child: TextField(
+                onChanged: _filterRestaurants,
+                decoration: const InputDecoration(
+                  hintText: 'Cari Restaurant...',
+                  hintStyle: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(Icons.search, color: Colors.white54, size: 28),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
+                ),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
                 ),
               ),
             ),
-
-            // Menu navigasi di bawah halaman
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-              decoration: const BoxDecoration(
-                color: Color(0xFF273228), // Gunakan warna yang sama dengan AppBar
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(
-                  icons.length,
-                  (index) => GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedPage = index;
-                      });
-                      // Navigasi berdasarkan ikon yang dipilih
-                      if (index == 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const HomePage(),
-                          ),
-                        );
-                      }
-                      else if (index == 1) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const RestaurantPage(),
-                          ),
-                        );
-                      }
-                      else if (index == 2) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const TicketPage(),
-                          ),
-                        );
-                      }
-                      else if (index == 3) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const HelpCenterPage(),
-                          ),
-                        );
-                      }
+          ),
+          // Grid of Destinations
+          Expanded(
+            child: filteredRestaurants.isNotEmpty
+                ? GridView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: filteredRestaurants.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // Dua kolom per baris
+                      mainAxisSpacing: 10, // Jarak antar baris
+                      crossAxisSpacing: 10, // Jarak antar kolom
+                      childAspectRatio: 0.95, // Proporsi tinggi item
+                    ),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailRestaurant(
+                                  restaurant: filteredRestaurants[index]),
+                            ),
+                          );
+                        },
+                        child: Restaurant(
+                          restaurant: filteredRestaurants[index],
+                        ),
+                      );
                     },
-                    child: Icon(
-                      icons[index],
-                      size: 32,
-                      color: selectedPage == index
-                          ? Colors.orange // Warna aktif
-                          : Colors.white.withOpacity(0.4), // Warna tidak aktif
+                  )
+                : const Center(
+                    child: Text(
+                      'Restaurant tidak ditemukan.',
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+            decoration: const BoxDecoration(
+              color: Color(0xFF273228), // Gunakan warna yang sama dengan AppBar
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(
+                icons.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedPage = index;
+                    });
+                    // Navigasi berdasarkan ikon yang dipilih
+                    if (index == 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HomePage(),
+                        ),
+                      );
+                    }
+                    else if (index == 1) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const RestaurantPage(),
+                        ),
+                      );
+                    }
+                    else if (index == 2) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const TicketPage(),
+                        ),
+                      );
+                    }
+                    else if (index == 3) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HelpCenterPage(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Icon(
+                    icons[index],
+                    size: 32,
+                    color: selectedPage == index
+                        ? iconColor // Warna aktif
+                        : Colors.white.withOpacity(0.4), // Warna tidak aktif
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-  void filterRestaurants(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        filteredRestaurants = restaurant;
-      } else {
-        filteredRestaurants = restaurant.where((resto) {
-          return resto.name.toLowerCase().contains(query.toLowerCase());
-        }).toList();
-      }
-    });
-  }
+  // void filterRestaurants(String query) {
+  //   setState(() {
+  //     if (query.isEmpty) {
+  //       filteredRestaurants = restaurant;
+  //     } else {
+  //       filteredRestaurants = restaurant.where((resto) {
+  //         return resto.name.toLowerCase().contains(query.toLowerCase());
+  //       }).toList();
+  //     }
+  //   });
+  // }
   void _showNotifications(BuildContext context) {
     showDialog(
       context: context,
@@ -253,36 +265,4 @@ class _RestaurantPageState extends State<RestaurantPage> {
   }
 }
 
-// Widget buildSearchButton() {
-//   return Container(
-//     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-//     decoration: BoxDecoration(
-//       color: kButtonColor,
-//       borderRadius: BorderRadius.circular(20),
-//       boxShadow: [
-//         BoxShadow(
-//           color: Colors.grey.withOpacity(0.8),
-//           spreadRadius: 2,
-//           blurRadius: 10,
-//           offset: const Offset(0, 5),
-//         ),
-//       ],
-//     ),
-//     child: const TextField(
-//       decoration: InputDecoration(
-//         hintText: 'cari restaurant...',
-//         hintStyle: TextStyle(
-//           color: Colors.white54,
-//           fontSize: 18,
-//         ),
-//         prefixIcon: Icon(Icons.search, color: Colors.white54, size: 28),
-//         border: InputBorder.none,
-//         contentPadding: EdgeInsets.symmetric(vertical: 12),
-//       ),
-//       style: TextStyle(
-//         color: Colors.white,
-//         fontSize: 18,
-//       ),
-//     ),
-//   );
-// }
+

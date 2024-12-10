@@ -301,7 +301,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                 icons[index],
                 size: 32,
                 color: selectedPage == index
-                    ? Colors.orange // Warna aktif
+                    ? iconColor// Warna aktif
                     : Colors.white.withOpacity(0.4), // Warna tidak aktif
               ),
             ),

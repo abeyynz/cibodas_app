@@ -255,12 +255,6 @@ class _OrderPageState extends State<OrderPage> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {
-                        setState(() {
-                          selectedMethod = method;
-                        });
-                      },
                     ),
                   )),
               const SizedBox(height: 36),
@@ -312,7 +306,7 @@ class _OrderPageState extends State<OrderPage> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.orange,
                       ),
                     ),
                   ),

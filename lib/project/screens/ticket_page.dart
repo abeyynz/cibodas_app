@@ -37,8 +37,7 @@ class _TicketPageState extends State<TicketPage>
   void initState() {
     super.initState();
     _tabController =
-        TabController(length: 2, vsync: this); // Dua tab: Tiket dan Simpan
-    // Simpan tiket baru jika ada
+        TabController(length: 2, vsync: this); 
     if (widget.purchasedTickets != null) {
       savedTickets.addAll(widget.purchasedTickets!);
     }

@@ -1,5 +1,6 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
+import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:flutter/material.dart';
 
@@ -252,56 +253,56 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: const Color(0xFF273228),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              icons.length,
-              (index) => GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedPage = index;
-                  });
-                  // Navigasi berdasarkan ikon yang dipilih
-                  if (index == 0) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HomePage(),
-                      ),
-                    );
-                  } else if (index == 1) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HelpCenterPage(),
-                      ),
-                    );
-                  } else if (index == 2) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const TicketPage(),
-                      ),
-                    );
-                  } else if (index == 3) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HelpCenterPage(),
-                      ),
-                    );
-                  }
-                },
-                child: Icon(
-                  icons[index],
-                  size: 32,
-                  color: selectedPage == index
-                      ? Colors.orange // Warna aktif
-                      : Colors.white.withOpacity(0.4), // Warna tidak aktif
-                ),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+        decoration: const BoxDecoration(
+          color: Color(0xFF273228),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+            icons.length,
+            (index) => GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedPage = index;
+                });
+                // Navigasi berdasarkan ikon yang dipilih
+                if (index == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const HomePage(),
+                    ),
+                  );
+                } else if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const RestaurantPage(),
+                    ),
+                  );
+                } else if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const TicketPage(),
+                    ),
+                  );
+                } else if (index == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const HelpCenterPage(),
+                    ),
+                  );
+                }
+              },
+              child: Icon(
+                icons[index],
+                size: 32,
+                color: selectedPage == index
+                    ? Colors.orange // Warna aktif
+                    : Colors.white.withOpacity(0.4), // Warna tidak aktif
               ),
             ),
           ),

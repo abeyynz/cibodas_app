@@ -7,6 +7,7 @@ import 'package:app_cibodas/project/screens/all_facilities_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
+import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/fasilitas.dart';
@@ -302,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const RestaurantPage(),
+                            builder: (_) => const HelpCenterPage(),
                           ),
                         );
                       }

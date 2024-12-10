@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cibodas Kebun Raya',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: const SplashScreen(),  // Splash screen sebagai home
-      debugShowCheckedModeBanner: false,  // Menyembunyikan banner debug
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

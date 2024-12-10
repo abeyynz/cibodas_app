@@ -1,6 +1,5 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/restaurant_model.dart';
-import 'package:app_cibodas/model/restaurant_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailRestaurant extends StatefulWidget {

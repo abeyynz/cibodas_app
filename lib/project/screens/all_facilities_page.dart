@@ -1,11 +1,8 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
-import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
 import 'package:app_cibodas/project/widgets/fasilitas.dart';
 import 'package:flutter/material.dart';
-import 'package:app_cibodas/model/destination_model.dart';
-import 'package:app_cibodas/project/widgets/popular_destination.dart';
 
 class AllFacilitiesPage extends StatefulWidget {
   final List<FasilitasModel> fasilitas;

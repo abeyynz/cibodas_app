@@ -43,6 +43,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
     filteredRestaurants = restaurant; // Tampilkan semua restoran awalnya
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

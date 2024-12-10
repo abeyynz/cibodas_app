@@ -18,7 +18,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Artikel'),
+        title: Text(widget.artikel.title),
         backgroundColor: kButtonColor,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -127,11 +127,11 @@ class _DetailArtikelState extends State<DetailArtikel> {
                             padding: const EdgeInsets.all(16.0),
                             child: SingleChildScrollView(
                               child: Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white, // Background cerah
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                                // padding: const EdgeInsets.all(16),
+                                // decoration: BoxDecoration(
+                                //   color: Colors.white, // Background cerah
+                                //   borderRadius: BorderRadius.circular(8),
+                                // ),
                                 child: Text(
                                   widget.artikel.description,
                                   style: const TextStyle(

@@ -25,29 +25,36 @@ class ShowArtikel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  artikel.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0), // Margin horizontal untuk title
+                  child: Text(
+                    artikel.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  artikel.description,
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 9,
-                    color: Colors.black.withOpacity(0.8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0), // Margin horizontal untuk deskripsi
+                  child: Text(
+                    artikel.description,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: Colors.black.withOpacity(0.8),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
+
           Container(
             height: 95,
             width: 95,

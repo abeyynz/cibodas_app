@@ -72,7 +72,7 @@ class _OrderPageState extends State<OrderPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                         color:
                             kButtonColor), // Mengubah warna outline saat fokus
                     borderRadius: BorderRadius.circular(8),
@@ -238,7 +238,8 @@ class _OrderPageState extends State<OrderPage> {
               ...paymentMethods.map((method) => GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedMethod = method; // Menyimpan metode yang dipilih
+                        selectedMethod =
+                            method; // Menyimpan metode yang dipilih
                       });
                     },
                     child: Card(
@@ -246,7 +247,8 @@ class _OrderPageState extends State<OrderPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       color: selectedMethod == method
-                          ? kButtonBrightColor.withOpacity(0.2) // Warna saat dipilih
+                          ? kButtonBrightColor
+                              .withOpacity(0.2) // Warna saat dipilih
                           : Colors.white, // Warna default
                       child: ListTile(
                         leading: Image.asset(
@@ -262,7 +264,8 @@ class _OrderPageState extends State<OrderPage> {
                           ),
                         ),
                         trailing: selectedMethod == method
-                            ? const Icon(Icons.check_circle, color: kButtonBrightColor)
+                            ? const Icon(Icons.check_circle,
+                                color: kButtonBrightColor)
                             : null,
                       ),
                     ),

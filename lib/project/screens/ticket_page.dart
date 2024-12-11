@@ -115,7 +115,7 @@ class _TicketPageState extends State<TicketPage>
                     elevation: 4,
                     child: Stack(
                       alignment: Alignment
-                          .bottomLeft, // Pastikan posisi di bagian bawah gambar
+                          .bottomLeft,
                       children: [
                         // Gambar Tiket
                         ClipRRect(
@@ -159,77 +159,77 @@ class _TicketPageState extends State<TicketPage>
 
           // Tab Simpan
           Padding(
-  padding: const EdgeInsets.all(10),
-  child: savedTickets.isNotEmpty
-      ? ListView.builder(
-          itemCount: savedTickets.length,
-          itemBuilder: (context, index) {
-            final ticket = savedTickets[index];
-            final ticketObj = ticket['ticket']; // Dapatkan objek tiket
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => TicketDetailPage(
-                      ticket: ticketObj,
-                      // ticketCount: ticket['ticketCount'],
-                      // totalPrice: ticket['totalPrice'],
+            padding: const EdgeInsets.all(10),
+            child: savedTickets.isNotEmpty
+                ? ListView.builder(
+                    itemCount: savedTickets.length,
+                    itemBuilder: (context, index) {
+                      final ticket = savedTickets[index];
+                      final ticketObj = ticket['ticket'];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => TicketDetailPage(
+                                ticket: ticketObj, // Kirim detail tiket
+                                ticketCount: ticket['ticketCount'],
+                                totalPrice: ticket['totalPrice'],
+                                userName: ticket['userName'] ?? 'Tria', // Beri nilai default jika null
+                                paymentMethod: ticket['paymentMethod'] ?? 'OVO',
+                              ), 
+                            ),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          elevation: 4,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.horizontal(
+                                    left: Radius.circular(10)),
+                                child: Image.asset(
+                                  ticketObj.imagePath, // Akses imagePath dari objek tiket
+                                  width: 180,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        ticketObj.name, // Akses nama tiket dari objek tiket
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text("Jumlah: ${ticket['ticketCount']}"),
+                                      Text("Total: Rp${ticket['totalPrice']}"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: Text(
+                      'Belum ada tiket tersimpan.',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ),
-                );
-              },
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 4,
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(10)),
-                      child: Image.asset(
-                        ticketObj.imagePath, // Akses imagePath dari objek tiket
-                        width: 180,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              ticketObj.name, // Akses nama tiket dari objek tiket
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text("Jumlah: ${ticket['ticketCount']}"),
-                            Text("Total: Rp${ticket['totalPrice']}"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        )
-      : const Center(
-          child: Text(
-            'Belum ada tiket tersimpan.',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
-        ),
-),
-
-
         ],
       ),
       bottomNavigationBar: Container(

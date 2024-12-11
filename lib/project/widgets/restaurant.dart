@@ -1,4 +1,3 @@
-import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/restaurant_model.dart';
 import 'package:flutter/material.dart';
 

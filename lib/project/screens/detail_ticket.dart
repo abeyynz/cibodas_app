@@ -1,158 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
-class TicketDetailPage extends StatefulWidget {
-  final List<Map<String, dynamic>>? ticket; // Ubah tipe menjadi Map untuk mencocokkan penggunaannya
-  const TicketDetailPage({super.key, this.ticket});
+class TicketDetailPage extends StatelessWidget {
+  final dynamic ticket; // Objek tiket
+  final int ticketCount; // Jumlah tiket
+  final int totalPrice; // Total harga
+  final String userName; // Nama user
+  final String paymentMethod; // Metode pembayaran
 
-  @override
-  State<TicketDetailPage> createState() => _TicketDetailPageState();
-}
+  const TicketDetailPage({
+    super.key,
+    required this.ticket,
+    required this.ticketCount,
+    required this.totalPrice,
+    required this.userName,
+    required this.paymentMethod,
+  });
 
-class _TicketDetailPageState extends State<TicketDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final ticket = widget.ticket; // Ambil referensi ke widget.ticket
-
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Detail Tiket'),
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: const Color(0xFF273228),
-        title: const Text("Detail Tiket"),
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
-      body: ticket == null || ticket.isEmpty
-          ? Center(child: const Text('Data tiket tidak tersedia.')) // Tampilkan pesan jika tiket null
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Card Tiket
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              elevation: 4,
+              child: Row(
                 children: [
-                  // Gambar tiket
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: const BorderRadius.horizontal(
+                        left: Radius.circular(10)),
                     child: Image.asset(
-                      ticket![0]['imagePath'], // Gambar tiket
-                      width: double.infinity,
-                      height: 200,
+                      ticket.imagePath, // Path gambar tiket
+                      width: 180,
+                      height: 100,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  // Informasi tiket
-                  Text(
-                    ticket![0]['name'],
-                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    ticket![0]['description'],
-                    style: const TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                  const Divider(height: 32, thickness: 1, color: Colors.grey),
-                  // Harga dan metode pembayaran
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Harga",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Rp${ticket![0]['price']}/orang",
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Metode Pembayaran",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        ticket![0]['paymentMethod'],
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  // QR Code
-                  Center(
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Scan Pembayaran",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ticket.name, // Nama tiket
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          child: Image.asset(
-                            'assets/qris.png', // Gambar QR Code statis
-                            width: 150,
-                            height: 150,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "Tip: Perlihatkan scan kepada loket pembayaran",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  // Informasi kontak
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade300,
-                          blurRadius: 6,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "KONTAK KAMI",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          "Alamat: Jl. Kebun Raya Cibodas, Sukaresmi, Kab. Cianjur",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Telepon: (+62) 263-512233",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Email: info@cibodas.id",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                        ),
-                      ],
+                          Text("Jumlah: $ticketCount"),
+                          Text("Total: Rp$totalPrice"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 20),
+
+            // Nama User
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Nama:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  userName, // Nama user
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+
+            // Metode Pembayaran
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Metode Pembayaran:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  paymentMethod, // Metode pembayaran
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // QR Code
+            Center(
+  child: Column(
+    children: [
+      const Text(
+        'QR Code',
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 10),
+      QrImageView(
+        data: ' Jumlah: $ticketCount, Total: Rp$totalPrice, Nama: $userName, Metode: $paymentMethod',
+        version: QrVersions.auto,
+        size: 250.0,
+        backgroundColor: Colors.white,
+      ),
+    ],
+  ),
+)
+
+          ],
+        ),
+      ),
     );
   }
 }

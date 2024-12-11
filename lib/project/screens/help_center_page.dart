@@ -102,7 +102,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
               });
               _showNotifications(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
               color: Colors.white,
             ),
@@ -123,21 +123,21 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: kButtonColor, // Warna border saat fokus
                     width: 2, // Lebar border
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: kButtonColor, // Warna border saat TextField fokus
                     width: 2, // Lebar border
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color:
                         Colors.grey, // Warna border saat TextField tidak fokus
                     width: 2, // Lebar border
@@ -209,14 +209,14 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                       hintText: 'Ketik masalah atau pesan...',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: kButtonColor, // Warna border saat fokus
                           width: 2, // Lebar border
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color:
                               kButtonColor, // Warna border saat TextField fokus
                           width: 2, // Lebar border
@@ -231,7 +231,6 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                     children: [
                       ElevatedButton(
                         onPressed: _sendMessage,
-                        child: const Text('Kirim'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               kButtonColor, // Warna background hijau
@@ -242,6 +241,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
+                        child: const Text('Kirim'),
                       ),
                     ],
                   ),

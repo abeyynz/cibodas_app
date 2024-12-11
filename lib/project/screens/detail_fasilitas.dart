@@ -27,7 +27,7 @@ class _DetailFasilitasState extends State<DetailFasilitas> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 250, // Tentukan tinggi yang tetap agar tidak ada Expanded
               child: Stack(
                 children: [

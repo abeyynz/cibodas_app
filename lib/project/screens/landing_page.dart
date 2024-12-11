@@ -74,7 +74,7 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       // Background dengan gambar
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/danau2.jpeg'),  // Ganti dengan gambar background Anda
             fit: BoxFit.cover,  // Agar gambar memenuhi seluruh layar

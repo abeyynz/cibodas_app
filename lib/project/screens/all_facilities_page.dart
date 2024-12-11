@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 class AllFacilitiesPage extends StatefulWidget {
   final List<FasilitasModel> fasilitas;
 
-  const AllFacilitiesPage({Key? key, required this.fasilitas}) : super(key: key);
+  const AllFacilitiesPage({super.key, required this.fasilitas});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AllFacilitiesPageState createState() => _AllFacilitiesPageState();
 }
 

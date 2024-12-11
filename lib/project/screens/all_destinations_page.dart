@@ -7,9 +7,10 @@ import 'package:app_cibodas/project/widgets/popular_destination.dart';
 class AllDestinationsPage extends StatefulWidget {
   final List<TravelDestination> destinations;
 
-  const AllDestinationsPage({Key? key, required this.destinations}) : super(key: key);
+  const AllDestinationsPage({super.key, required this.destinations});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AllDestinationsPageState createState() => _AllDestinationsPageState();
 }
 

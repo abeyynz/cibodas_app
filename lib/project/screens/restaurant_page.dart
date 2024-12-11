@@ -80,7 +80,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
               });
               _showNotifications(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
               color: Colors.white, // Ganti dengan logika warna jika diperlukan
             ),

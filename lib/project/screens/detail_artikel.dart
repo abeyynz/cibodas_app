@@ -126,19 +126,12 @@ class _DetailArtikelState extends State<DetailArtikel> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: SingleChildScrollView(
-                              child: Container(
-                                // padding: const EdgeInsets.all(16),
-                                // decoration: BoxDecoration(
-                                //   color: Colors.white, // Background cerah
-                                //   borderRadius: BorderRadius.circular(8),
-                                // ),
-                                child: Text(
-                                  widget.artikel.description,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    height: 1.5,
-                                    color: Colors.black87,
-                                  ),
+                              child: Text(
+                                widget.artikel.description,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  height: 1.5,
+                                  color: Colors.black87,
                                 ),
                               ),
                             ),

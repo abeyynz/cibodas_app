@@ -1,4 +1,3 @@
-import 'package:app_cibodas/model/artikel_model.dart';
 const kontak =
     'KONTAK KAMI';
 

@@ -24,3 +24,4 @@ List<TicketModel> tickets = [
   price: 15500,
   ),
 ];
+

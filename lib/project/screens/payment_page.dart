@@ -77,7 +77,26 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                       ),
                       onPressed: () {
-                        // Navigasi ke halaman ganti metode pembayaran
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text("Ganti Metode Pembayaran"),
+                            content: Text("Anda yakin ingin mengganti metode pembayaran?"),
+                            actions: [
+                              TextButton(
+                                child: Text("Tidak"),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                              TextButton(
+                                child: Text("Ya"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context); // Kembali ke OrderPage
+                                },
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: const Text(
                         'Ganti',

@@ -235,25 +235,35 @@ class _OrderPageState extends State<OrderPage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 16),
-              ...paymentMethods.map((method) => Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: selectedMethod == method
-                        ? kButtonBrightColor.withOpacity(0.2) // Warna saat dipilih
-                        : Colors.white, // Warna default
-                    child: ListTile(
-                      leading: Image.asset(
-                        method.image,
-                        width: 40,
-                        height: 40,
+              ...paymentMethods.map((method) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedMethod = method; // Menyimpan metode yang dipilih
+                      });
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      title: Text(
-                        method.name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      color: selectedMethod == method
+                          ? kButtonBrightColor.withOpacity(0.2) // Warna saat dipilih
+                          : Colors.white, // Warna default
+                      child: ListTile(
+                        leading: Image.asset(
+                          method.image,
+                          width: 40,
+                          height: 40,
                         ),
+                        title: Text(
+                          method.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        trailing: selectedMethod == method
+                            ? const Icon(Icons.check_circle, color: kButtonBrightColor)
+                            : null,
                       ),
                     ),
                   )),

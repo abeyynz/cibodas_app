@@ -1,5 +1,6 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/ticket_model.dart';
+import 'package:app_cibodas/project/screens/detail_ticket.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/order_page.dart';
@@ -158,61 +159,77 @@ class _TicketPageState extends State<TicketPage>
 
           // Tab Simpan
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: savedTickets.isNotEmpty
-                ? ListView.builder(
-                    itemCount: savedTickets.length,
-                    itemBuilder: (context, index) {
-                      final ticket = savedTickets[index];
-                      final ticketObj = ticket['ticket'];  // Dapatkan objek tiket
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        elevation: 4,
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(10)),
-                              child: Image.asset(
-                                ticketObj.imagePath,  // Akses imagePath dari objek tiket
-                                width: 180,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      ticketObj.name,  // Akses nama tiket dari objek tiket
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text("Jumlah: ${ticket['ticketCount']}"),
-                                    Text("Total: Rp${ticket['totalPrice']}"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  )
-                : const Center(
-                    child: Text(
-                      'Belum ada tiket tersimpan.',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+  padding: const EdgeInsets.all(10),
+  child: savedTickets.isNotEmpty
+      ? ListView.builder(
+          itemCount: savedTickets.length,
+          itemBuilder: (context, index) {
+            final ticket = savedTickets[index];
+            final ticketObj = ticket['ticket']; // Dapatkan objek tiket
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TicketDetailPage(
+                      ticket: ticketObj,
+                      // ticketCount: ticket['ticketCount'],
+                      // totalPrice: ticket['totalPrice'],
                     ),
                   ),
+                );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 4,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(10)),
+                      child: Image.asset(
+                        ticketObj.imagePath, // Akses imagePath dari objek tiket
+                        width: 180,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              ticketObj.name, // Akses nama tiket dari objek tiket
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text("Jumlah: ${ticket['ticketCount']}"),
+                            Text("Total: Rp${ticket['totalPrice']}"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        )
+      : const Center(
+          child: Text(
+            'Belum ada tiket tersimpan.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
+        ),
+),
+
+
         ],
       ),
       bottomNavigationBar: Container(

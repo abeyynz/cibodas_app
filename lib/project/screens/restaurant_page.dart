@@ -3,6 +3,8 @@ import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/detail_restaurant.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
+import 'package:app_cibodas/project/widgets/app_bar.dart';
+import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:app_cibodas/project/widgets/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cibodas/model/restaurant_model.dart';  // Pastikan ini sudah benar
@@ -60,32 +62,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0, left: 1.0),
-          child: Image.asset(
-            'assets/logo.png',
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-        ),
-        backgroundColor: const Color(0xFF273228),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                isNotificationClicked = !isNotificationClicked;
-              });
-              _showNotifications(context);
-            },
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.white, // Ganti dengan logika warna jika diperlukan
-            ),
-          ),
-        ],
+      appBar: CustomAppBar(
+        onNotificationTap: () {
+          setState(() {
+            isNotificationClicked = !isNotificationClicked;
+          });
+          _showNotifications(context);
+        },
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: Column(
@@ -162,66 +145,47 @@ class _RestaurantPageState extends State<RestaurantPage> {
                     ),
                   ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-            decoration: const BoxDecoration(
-              color: Color(0xFF273228), // Gunakan warna yang sama dengan AppBar
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(
-                icons.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedPage = index;
-                    });
-                    // Navigasi berdasarkan ikon yang dipilih
-                    if (index == 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const HomePage(),
-                        ),
-                      );
-                    }
-                    else if (index == 1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const RestaurantPage(),
-                        ),
-                      );
-                    }
-                    else if (index == 2) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const TicketPage(),
-                        ),
-                      );
-                    }
-                    else if (index == 3) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const HelpCenterPage(),
-                        ),
-                      );
-                    }
-                  },
-                  child: Icon(
-                    icons[index],
-                    size: 32,
-                    color: selectedPage == index
-                        ? iconColor // Warna aktif
-                        : Colors.white.withOpacity(0.4), // Warna tidak aktif
-                  ),
-                ),
-              ),
-            ),
-          ),
+          
         ],
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedPage: selectedPage,
+        onItemTapped: (index) {
+          setState(() {
+            selectedPage = index;
+          });
+
+          // Navigasi berdasarkan ikon yang dipilih
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HomePage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const RestaurantPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const TicketPage(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HelpCenterPage(),
+              ),
+            );
+          }
+        },
       ),
     );
   }

@@ -1,4 +1,3 @@
-// lib/project/screens/splash_screen.dart
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/landing_page.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -15,8 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     // Menunggu beberapa detik sebelum pindah ke halaman utama
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LandingPage()), // Ganti dengan halaman utama Anda
@@ -27,20 +26,33 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kButtonBrightColor,  // Bisa diganti sesuai kebutuhan
+      backgroundColor: kButtonColor, // Bisa diganti sesuai kebutuhan
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/logo.png',  // Ganti dengan logo atau gambar lain
-              width: 500,
-              height: 500,
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10.0), // Atur nilai padding untuk menggeser ke kanan
+              // child: 
+              Image.asset(
+                "assets/logo_app.gif",
+                width: 300,
+                height: 300,
+              ),
+            // ),
+            // Tambahkan slogan
+            const Text(
+              'Your Financial Companion', // Slogan
+              style: TextStyle(
+                color: Colors.orange, // Warna teks
+                fontSize: 18,         // Ukuran font
+                fontWeight: FontWeight.bold, // Ketebalan teks
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),  // Ganti dengan warna yang diinginkan
-            ),  // Indikator loading
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange), // Ganti dengan warna yang diinginkan
+            ), // Indikator loading
           ],
         ),
       ),

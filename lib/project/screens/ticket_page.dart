@@ -5,6 +5,7 @@ import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/order_page.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
+import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatefulWidget {
@@ -232,61 +233,44 @@ class _TicketPageState extends State<TicketPage>
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-        decoration: const BoxDecoration(
-          color: Color(0xFF273228),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(
-            icons.length,
-            (index) => GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedPage = index;
-                });
-                // Navigasi berdasarkan ikon yang dipilih
-                if (index == 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HomePage(),
-                    ),
-                  );
-                } else if (index == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const RestaurantPage(),
-                    ),
-                  );
-                } else if (index == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const TicketPage(),
-                    ),
-                  );
-                } else if (index == 3) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HelpCenterPage(),
-                    ),
-                  );
-                }
-              },
-              child: Icon(
-                icons[index],
-                size: 32,
-                color: selectedPage == index
-                    ? iconColor // Warna aktif
-                    : Colors.white.withOpacity(0.4), // Warna tidak aktif
+      bottomNavigationBar: CustomNavigationBar(
+        selectedPage: selectedPage,
+        onItemTapped: (index) {
+          setState(() {
+            selectedPage = index;
+          });
+
+          // Navigasi berdasarkan ikon yang dipilih
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HomePage(),
               ),
-            ),
-          ),
-        ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const RestaurantPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const TicketPage(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HelpCenterPage(),
+              ),
+            );
+          }
+        },
       ),
     );
   }

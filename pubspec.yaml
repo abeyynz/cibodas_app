@@ -34,6 +34,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   qr_flutter: ^4.1.0
+  gif: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -93,3 +94,4 @@ flutter:
     - assets/ovo.png
     - assets/dana.png
     - assets/qris.png
+    - assets/logo_app.gif

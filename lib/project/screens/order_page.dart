@@ -249,7 +249,7 @@ class _OrderPageState extends State<OrderPage> {
                       color: selectedMethod == method
                           ? kButtonBrightColor
                               .withOpacity(0.2) // Warna saat dipilih
-                          : Colors.white, // Warna default
+                          : kButtonBrightColor, // Warna default
                       child: ListTile(
                         leading: Image.asset(
                           method.image,

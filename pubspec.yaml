@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   qr_flutter: ^4.1.0
   gif: ^2.3.0
+  shared_preferences: ^2.1.0 
 
 dev_dependencies:
   flutter_test:
@@ -95,3 +96,6 @@ flutter:
     - assets/dana.png
     - assets/qris.png
     - assets/logo_app.gif
+    - assets/kebunsatu.jpg
+    - assets/kebundua.jpg
+    - assets/kebuntiga.jpg

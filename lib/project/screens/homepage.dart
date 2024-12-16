@@ -64,6 +64,9 @@ class _HomePageState extends State<HomePage> {
           });
           _showNotifications(context);
         },
+        onProfileTap: () {
+          _showProfileDialog(context);
+        },
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -309,6 +312,34 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pop(context);
               },
               child: const Text('Tutup'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showProfileDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Profil'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text('Nama: John Doe'),
+              SizedBox(height: 8),
+              Text('Nomor HP: 081234567890'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                // Tambahkan logika logout di sini jika diperlukan
+              },
+              child: const Text('Logout'),
             ),
           ],
         );

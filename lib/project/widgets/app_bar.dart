@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onNotificationTap;
-
+  final VoidCallback onProfileTap;
+  final PreferredSizeWidget? bottom;
+  
   const CustomAppBar({
     Key? key,
     required this.onNotificationTap,
+    required this.onProfileTap, this.bottom,
   }) : super(key: key);
 
   @override
@@ -30,10 +33,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white,
           ),
         ),
+        IconButton(
+          onPressed: onProfileTap,
+          icon: const Icon(
+            Icons.account_circle,
+            color: Colors.white,
+          ),
+        ),
       ],
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    // Hitung tinggi AppBar dengan tambahan tinggi bottom
+    final double height = kToolbarHeight + (bottom?.preferredSize.height ?? 0);
+    return Size.fromHeight(height);
+  }
 }

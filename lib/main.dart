@@ -1,5 +1,4 @@
 
-import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:flutter/material.dart';
 import 'project/screens/splash_screen.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const RestaurantPage(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

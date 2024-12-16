@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // ),
             // Tambahkan slogan
             const Text(
-              'Your Financial Companion', // Slogan
+              '#AYOKEKEBUNRAYA', // Slogan
               style: TextStyle(
                 color: Colors.orange, // Warna teks
                 fontSize: 18,         // Ukuran font

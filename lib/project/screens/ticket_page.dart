@@ -1,10 +1,11 @@
-import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/ticket_model.dart';
+import 'package:app_cibodas/project/helpers/dialog_helpers.dart';
 import 'package:app_cibodas/project/screens/detail_ticket.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
 import 'package:app_cibodas/project/screens/order_page.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
+import 'package:app_cibodas/project/widgets/app_bar.dart';
 import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -49,34 +50,20 @@ class _TicketPageState extends State<TicketPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0, left: 1.0),
-          child: Image.asset(
-            'assets/logo.png',
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-        ),
-        backgroundColor: const Color(0xFF273228),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                isNotificationClicked = !isNotificationClicked;
-              });
-              _showNotifications(context);
+      appBar: CustomAppBar(
+        onNotificationTap: () {
+          DialogHelpers.showNotifications(context, notifications);
+        },
+        onProfileTap: () {
+          DialogHelpers.showProfileDialog(
+            context,
+            'John Doe',
+            '081234567890',
+            () {
+              print('Logout berhasil!');
             },
-            icon: Icon(
-              Icons.notifications,
-              color: isNotificationClicked
-                  ? const Color(0xFFCC7F3F)
-                  : Colors.white,
-            ),
-          ),
-        ],
+          );
+        },
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.orange,
@@ -272,34 +259,6 @@ class _TicketPageState extends State<TicketPage>
           }
         },
       ),
-    );
-  }
-
-  void _showNotifications(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Notifikasi'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              notifications.length,
-              (index) => ListTile(
-                title: Text(notifications[index]),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Tutup'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

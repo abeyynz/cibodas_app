@@ -7,12 +7,12 @@ import 'package:app_cibodas/project/widgets/app_bar.dart';
 import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:app_cibodas/project/widgets/restaurant.dart';
 import 'package:flutter/material.dart';
-import 'package:app_cibodas/model/restaurant_model.dart';  // Pastikan ini sudah benar
+import 'package:app_cibodas/model/restaurant_model.dart'; // Pastikan ini sudah benar
 
 class RestaurantPage extends StatefulWidget {
   // final List<RestaurantModel> restaurant;
   const RestaurantPage({super.key});
-  
+
   @override
   _RestaurantPageState createState() => _RestaurantPageState();
 }
@@ -30,18 +30,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
     'Notifikasi 4',
   ];
 
-  List<RestaurantModel> restaurant= listRestaurant
+  List<RestaurantModel> restaurant = listRestaurant
       .where((element) => element.category == 'restaurant')
       .toList();
 
   List<IconData> icons = [
     Icons.home,
-    Icons.restaurant_menu,  
+    Icons.restaurant_menu,
     Icons.local_activity,
     Icons.support_agent,
   ];
 
-  
   @override
   void initState() {
     super.initState();
@@ -58,7 +57,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +66,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
             isNotificationClicked = !isNotificationClicked;
           });
           _showNotifications(context);
+        },
+        onProfileTap: () {
+          _showProfileDialog(context);
         },
       ),
       backgroundColor: const Color(0xFFF5F5F5),
@@ -98,7 +99,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                     color: Colors.white54,
                     fontSize: 18,
                   ),
-                  prefixIcon: Icon(Icons.search, color: Colors.white54, size: 28),
+                  prefixIcon:
+                      Icon(Icons.search, color: Colors.white54, size: 28),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 12),
                 ),
@@ -115,7 +117,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 ? GridView.builder(
                     padding: const EdgeInsets.all(10.0),
                     itemCount: filteredRestaurants.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, // Dua kolom per baris
                       mainAxisSpacing: 10, // Jarak antar baris
                       crossAxisSpacing: 10, // Jarak antar kolom
@@ -145,7 +148,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
                     ),
                   ),
           ),
-          
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -189,6 +191,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
       ),
     );
   }
+
   // void filterRestaurants(String query) {
   //   setState(() {
   //     if (query.isEmpty) {
@@ -227,6 +230,32 @@ class _RestaurantPageState extends State<RestaurantPage> {
       },
     );
   }
+  void _showProfileDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Profil'),
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nama: John Doe'),
+              SizedBox(height: 8),
+              Text('Nomor HP: 081234567890'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                // Tambahkan logika logout di sini jika diperlukan
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
-
-

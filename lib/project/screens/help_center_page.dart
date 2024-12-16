@@ -5,6 +5,7 @@ import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/app_bar.dart';
 import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:app_cibodas/project/helpers/dialog_helpers.dart';
 
 class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
@@ -86,10 +87,17 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
     return Scaffold(
       appBar: CustomAppBar(
         onNotificationTap: () {
-          setState(() {
-            isNotificationClicked = !isNotificationClicked;
-          });
-          _showNotifications(context);
+          DialogHelpers.showNotifications(context, notifications);
+        },
+        onProfileTap: () {
+          DialogHelpers.showProfileDialog(
+            context,
+            'John Doe',
+            '081234567890',
+            () {
+              print('Logout berhasil!');
+            },
+          );
         },
       ),
       backgroundColor: const Color(0xFFF5F5F5),
@@ -275,35 +283,6 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
           }
         },
       ),
-    );
-  }
-
-  void _showNotifications(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Notifikasi'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              notifications.length,
-              (index) => ListTile(
-                title: Text(notifications[index]),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Tutup'),
-            ),
-          ],
-        );
-      },
-      
     );
   }
 }

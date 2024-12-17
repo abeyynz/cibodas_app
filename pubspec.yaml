@@ -92,9 +92,9 @@ flutter:
   assets :
     - assets/
     - assets/gopay.png
-    - assets/ovo.png
-    - assets/dana.png
-    - assets/qris.png
+    - assets/ovo2.png
+    - assets/dana2.png
+    - assets/qris2.png
     - assets/logo_app.gif
     - assets/kebunsatu.jpg
     - assets/kebundua.jpg

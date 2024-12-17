@@ -1,11 +1,13 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
+import 'package:app_cibodas/project/screens/login_page.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/app_bar.dart';
 import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_cibodas/project/helpers/dialog_helpers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
@@ -89,16 +91,28 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
         onNotificationTap: () {
           DialogHelpers.showNotifications(context, notifications);
         },
-        onProfileTap: () {
+        onProfileTap: () async {
+          final prefs = await SharedPreferences.getInstance();
+          final name = prefs.getString('name') ?? 'Nama tidak tersedia';
+          final phoneNumber = prefs.getString('phoneNumber') ?? 'Nomor HP tidak tersedia';
+
           DialogHelpers.showProfileDialog(
             context,
-            'John Doe',
-            '081234567890',
-            () {
-              print('Logout berhasil!');
+            name,
+            phoneNumber,
+            () async {
+              // Logika logout
+              await prefs.clear(); // Hapus semua data di SharedPreferences
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+              );
             },
           );
         },
+
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: Padding(

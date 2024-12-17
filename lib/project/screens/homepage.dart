@@ -2,12 +2,14 @@ import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/model/artikel_model.dart';
 import 'package:app_cibodas/model/destination_model.dart';
 import 'package:app_cibodas/model/fasilitas_model.dart';
+import 'package:app_cibodas/project/helpers/dialog_helpers.dart';
 import 'package:app_cibodas/project/screens/all_destinations_page.dart';
 import 'package:app_cibodas/project/screens/all_facilities_page.dart';
 import 'package:app_cibodas/project/screens/detail_artikel.dart';
 import 'package:app_cibodas/project/screens/detail_destination.dart';
 import 'package:app_cibodas/project/screens/detail_fasilitas.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
+import 'package:app_cibodas/project/screens/login_page.dart';
 import 'package:app_cibodas/project/screens/restaurant_page.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/app_bar.dart';
@@ -16,6 +18,7 @@ import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:app_cibodas/project/widgets/popular_destination.dart';
 import 'package:app_cibodas/project/widgets/show_artikel.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,11 +31,8 @@ class _HomePageState extends State<HomePage> {
   int selectedPage = 0;
   bool isNotificationClicked = false;
   List<String> notifications = [
-    'Notifikasi 1',
-    'Notifikasi 2',
-    'Notifikasi 3',
-    'Notifikasi 4',
-    // Add more notifications here
+    'Selamat Anda berhasil terdaftar',
+    'Pembayaran berhasil!'
   ];
 
   List<TravelDestination> popular = listDestination
@@ -64,8 +64,26 @@ class _HomePageState extends State<HomePage> {
           });
           _showNotifications(context);
         },
-        onProfileTap: () {
-          _showProfileDialog(context);
+        onProfileTap: () async {
+          final prefs = await SharedPreferences.getInstance();
+          final name = prefs.getString('name') ?? 'Nama tidak tersedia';
+          final phoneNumber = prefs.getString('phoneNumber') ?? 'Nomor HP tidak tersedia';
+
+          DialogHelpers.showProfileDialog(
+            context,
+            name,
+            phoneNumber,
+            () async {
+              // Logika logout
+              await prefs.clear();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+              );
+            },
+          );
         },
       ),
       backgroundColor: const Color(0xFFF5F5F5),

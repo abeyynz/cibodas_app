@@ -1,6 +1,7 @@
 import 'package:app_cibodas/const.dart';
 import 'package:app_cibodas/project/screens/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -86,8 +87,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     const SizedBox(height: 40),
                     ElevatedButton(
-                      onPressed: () {
-                        // Simpan atau proses pendaftaran di sini
+                      onPressed: () async {
+                        // Simpan data pendaftaran
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString('name', _nameController.text);
+                        await prefs.setString('phone', _phoneController.text);
+                        await prefs.setString('password', _passwordController.text);
+
+                        // Pindah ke halaman login
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -98,8 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 14, horizontal: 40),
+                        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -156,6 +162,9 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: controller,
       obscureText: obscureText,
       cursorColor: Colors.orange,
+      style: const TextStyle(
+        color: Colors.white, // Mengubah warna teks menjadi putih
+    ) ,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon, color: Colors.orange),

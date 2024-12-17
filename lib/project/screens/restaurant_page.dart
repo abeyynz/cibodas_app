@@ -1,13 +1,16 @@
 import 'package:app_cibodas/const.dart';
+import 'package:app_cibodas/project/helpers/dialog_helpers.dart';
 import 'package:app_cibodas/project/screens/help_center_page.dart';
 import 'package:app_cibodas/project/screens/detail_restaurant.dart';
 import 'package:app_cibodas/project/screens/homepage.dart';
+import 'package:app_cibodas/project/screens/login_page.dart';
 import 'package:app_cibodas/project/screens/ticket_page.dart';
 import 'package:app_cibodas/project/widgets/app_bar.dart';
 import 'package:app_cibodas/project/widgets/nav_bar.dart';
 import 'package:app_cibodas/project/widgets/restaurant.dart';
 import 'package:flutter/material.dart';
-import 'package:app_cibodas/model/restaurant_model.dart'; // Pastikan ini sudah benar
+import 'package:app_cibodas/model/restaurant_model.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Pastikan ini sudah benar
 
 class RestaurantPage extends StatefulWidget {
   // final List<RestaurantModel> restaurant;
@@ -62,13 +65,28 @@ class _RestaurantPageState extends State<RestaurantPage> {
     return Scaffold(
       appBar: CustomAppBar(
         onNotificationTap: () {
-          setState(() {
-            isNotificationClicked = !isNotificationClicked;
-          });
-          _showNotifications(context);
+          DialogHelpers.showNotifications(context, notifications);
         },
-        onProfileTap: () {
-          _showProfileDialog(context);
+        onProfileTap: () async {
+          final prefs = await SharedPreferences.getInstance();
+          final name = prefs.getString('name') ?? 'Nama tidak tersedia';
+          final phoneNumber = prefs.getString('phoneNumber') ?? 'Nomor HP tidak tersedia';
+
+          DialogHelpers.showProfileDialog(
+            context,
+            name,
+            phoneNumber,
+            () async {
+              // Logika logout
+              await prefs.clear(); // Hapus semua data di SharedPreferences
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+              );
+            },
+          );
         },
       ),
       backgroundColor: const Color(0xFFF5F5F5),
@@ -203,59 +221,4 @@ class _RestaurantPageState extends State<RestaurantPage> {
   //     }
   //   });
   // }
-  void _showNotifications(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Notifikasi'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              notifications.length,
-              (index) => ListTile(
-                title: Text(notifications[index]),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Tutup'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  void _showProfileDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Profil'),
-          content: const Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Nama: John Doe'),
-              SizedBox(height: 8),
-              Text('Nomor HP: 081234567890'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // Tambahkan logika logout di sini jika diperlukan
-              },
-              child: const Text('Logout'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }

@@ -12,11 +12,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
+    _nameController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -32,10 +34,15 @@ class _LoginPageState extends State<LoginPage> {
 
     if (_phoneController.text == savedPhone &&
         _passwordController.text == savedPassword) {
+      // Simpan nama dan nomor HP pengguna
+      await prefs.setString('name', 'Tria'); // Ganti dengan nama sesuai kebutuhan
+      await prefs.setString('phoneNumber', _phoneController.text);
+
       // Jika login berhasil
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login Berhasil!')),
       );
+
       // Navigasi ke HomePage
       Navigator.push(
         context,
@@ -50,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -172,12 +180,16 @@ class _LoginPageState extends State<LoginPage> {
       controller: controller,
       obscureText: obscureText,
       cursorColor: Colors.orange,
+      style: const TextStyle(
+        color: Colors.white, // Mengubah warna teks menjadi putih
+      ),
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon, color: Colors.orange),
         labelStyle: const TextStyle(
           color: Colors.white,
         ),
+         
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.orange),
